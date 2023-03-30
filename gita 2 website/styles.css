@@ -1,0 +1,173 @@
+body, html{
+	height: 100%;
+	margin: 0;
+	background-color:black;
+}
+
+h1{
+	color: white;
+	font-family: Montserrat;
+	font-size: 70px;
+}
+
+h2{
+	
+	font-family: Montserrat;
+	font-size: 40px;
+}
+.h2{
+	color: white;
+	font-family: Montserrat;
+	font-size: 40px;
+	
+}
+
+.hengine{
+	color: white;
+	font-family: Montserrat;
+	font-size: 40px;
+	position: relative;
+	left: -900px;
+	top: -300px;
+}
+
+.p1{
+	color: white;
+	font-size: 18px;
+}
+
+.p2{
+	color: gray;
+	font-size:16px;
+}
+
+.p3{
+	color: blue;
+	font-size:16px;
+}
+
+
+.caption{
+	position: relative;
+	font-family: Roboto;
+	background-color: black;
+	text-align:center;
+	padding: 50px 40px;
+	text-align: justify;
+	width: 25%;
+	color: white;
+}
+
+
+.captionright{
+	position: relative;
+	font-family: arial;
+	background-color: black;
+	text-align:center;
+	text-align: justify;
+	width: 30%;
+	float: right;
+	padding: 50px 40px;
+	bottom: 50px;
+	height: 50%;
+}
+
+.container {
+  height: 200px;
+  position: relative;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  }
+  
+.bgimg1, .bgimg2, .bgimg3{
+	position: relative;
+	
+	background-attachment:fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.bgimg1{
+	background-image: url("https://www.spacex.com/static/images/backgrounds/f9_feature.webp");
+	min-height: 100%
+}
+
+.bgimg2{
+	background-image: url('falcon9.jpg');
+	min-height: 100%;
+	
+}
+
+.bgimg3{
+	background-image: url("https://www.spacex.com/static/images/falcon-9/desktop/Merlin.webp");
+	min-height: 100%;
+}
+
+th, td{
+	text-align: left;
+	padding: 12px;
+	border-bottom: 5px solid white;
+}
+
+th{
+	color:gray;
+}
+
+td{
+	color:red;
+}
+	table, th, td{
+	border-collapse: collapse;
+	}
+	
+	table{
+	width: 100%;
+	}
+	
+.right{
+	position: relative;
+	left: 960px;
+	
+}
+
+.left{
+	position: relative;
+	top: -500px;
+	
+
+}
+
+.sealevel{
+	position: relative;
+	font-family: Roboto;
+	background-color: black;
+	text-align:center;
+	padding: 50px 40px;
+	text-align: justify;
+	width: 25%;
+	color: blue;
+	left: -500px;
+	top: -600px;
+}
+
+
+.vaccum{
+	position: relative;
+	font-family: georgia;
+	background-color: black;
+	text-align:center;
+	padding: 50px 40px;
+	text-align: justify;
+	width: 25%;
+	font: blue;
+	left: 1000px;
+	top: -400px;
+}

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Invader Chase</title>
+
+    <script language="javascript">
+       var _0x696d=["\x72\x61\x6E\x64\x6F\x6D","\x66\x6C\x6F\x6F\x72","\x6D\x79\x63\x61\x6E\x76\x61\x73","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x32\x64","\x67\x65\x74\x43\x6F\x6E\x74\x65\x78\x74","\x77\x69\x64\x74\x68","\x63\x61\x6E\x76\x61\x73","\x68\x65\x69\x67\x68\x74","\x66\x69\x6C\x6C\x53\x74\x79\x6C\x65","\x23\x30\x30\x30\x30\x30\x30","\x69\x6E\x6E\x65\x72\x57\x69\x64\x74\x68","\x69\x6E\x6E\x65\x72\x48\x65\x69\x67\x68\x74","\x66\x69\x6C\x6C\x52\x65\x63\x74","\x23\x30\x30\x63\x63\x66\x66","\x62\x65\x67\x69\x6E\x50\x61\x74\x68","\x72\x65\x63\x74","\x73\x74\x72\x6F\x6B\x65","\x66\x69\x6C\x6C","\x23\x66\x66\x63\x63\x30\x30","\x23\x36\x39\x36\x39\x36\x39","\x63\x6C\x65\x61\x72\x49\x6E\x74\x65\x72\x76\x61\x6C","\x59\x6F\x75\x20\x77\x6F\x6E\x21","\x6D\x6F\x76\x65\x28\x29"];var onoff=0* 1;var leftright=0* 1;var xcoord=Math[_0x696d[1]](Math[_0x696d[0]]()* 480);var ycoord=430;var xcoord2=xcoord- 20;var xcoord3=xcoord+ 20;function paintcanvas(){var _0x1c99x8=document[_0x696d[3]](_0x696d[2]);var _0x1c99x9=_0x1c99x8[_0x696d[5]](_0x696d[4]);_0x1c99x9[_0x696d[7]][_0x696d[6]]= 600;_0x1c99x9[_0x696d[7]][_0x696d[8]]= 500;_0x1c99x9[_0x696d[9]]= _0x696d[10];_0x1c99x9[_0x696d[13]](0,0,window[_0x696d[11]],window[_0x696d[12]]);_0x1c99x9[_0x696d[9]]= _0x696d[14];_0x1c99x9[_0x696d[15]]();_0x1c99x9[_0x696d[16]](xcoord,ycoord- 5,20,15);_0x1c99x9[_0x696d[17]]();_0x1c99x9[_0x696d[18]]();_0x1c99x9[_0x696d[9]]= _0x696d[19];_0x1c99x9[_0x696d[15]]();_0x1c99x9[_0x696d[16]](xcoord2,ycoord+ 25,20,35);_0x1c99x9[_0x696d[17]]();_0x1c99x9[_0x696d[18]]();_0x1c99x9[_0x696d[9]]= _0x696d[19];_0x1c99x9[_0x696d[15]]();_0x1c99x9[_0x696d[16]](xcoord3,ycoord+ 25,20,20);_0x1c99x9[_0x696d[17]]();_0x1c99x9[_0x696d[18]]();_0x1c99x9[_0x696d[9]]= _0x696d[20];_0x1c99x9[_0x696d[15]]();_0x1c99x9[_0x696d[16]](xcoord- 20,ycoord+ 10,60,20);_0x1c99x9[_0x696d[17]]();_0x1c99x9[_0x696d[18]]()}function move(){var _0x1c99x8=document[_0x696d[3]](_0x696d[2]);var _0x1c99x9=_0x1c99x8[_0x696d[5]](_0x696d[4]);var leftright=Math[_0x696d[1]](Math[_0x696d[0]]()* 2);if(leftright== 0){xcoord+= 20;ycoord-= 10;xcoord2= xcoord- 20;xcoord3= xcoord+ 20}else {if(leftright== 1){xcoord-= 20;ycoord-= 10;xcoord2= xcoord+ 20;xcoord3= xcoord- 20}};if(ycoord<= 0){onoff= 0* 1;xcoord= Math[_0x696d[1]](Math[_0x696d[0]]()* 480);ycoord= 430;window[_0x696d[21]](timer);alert(_0x696d[22])};if(xcoord<= 15){xcoord+= 20};if(xcoord>= 560){xcoord-= 20};paintcanvas()}function starttimer(){if(onoff== 0){timer= setInterval(_0x696d[23],500);onoff= 1* 1}else {if(onoff== 1){clearInterval(timer);onoff= 0* 1}}}
+    </script>
+</head>
+<body onload="paintcanvas()" style="background-color: #808080; background-image: url('background-invaderchase.jpg');">
+    <center>
+        <h1 style="font-family:Impact; font-size:48px; color:red; outline-style:solid; outline-color:black; background-color:black;">Invader Chase</h1>
+        <canvas id="mycanvas" width="500"
+                style="border:1px solid rgb(195, 195, 195);">
+            Your browser does not support the canvas element
+        </canvas>
+        </br>
+        </br>
+        <input type="button" name="auto" value="Animate" style="font-family:Montserrat; font-size:20px; color:red; background-color:black;"
+               onclick="starttimer()" />
+        <input type="button" name="move" value="Move" style="font-family:Montserrat; font-size:20px; color:red; background-color:black;"
+               onclick="move()" />
+    </center>
+
+</body>
+</html>

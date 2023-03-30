@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Pong</title>
+    <script language="javascript">
+        var _0x9aab=["\x69\x6E\x6E\x65\x72\x48\x54\x4D\x4C","\x6F\x75\x74\x70\x75\x74\x66\x69\x65\x6C\x64\x31","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x6F\x75\x74\x70\x75\x74\x66\x69\x65\x6C\x64\x32","\x6D\x6F\x76\x65\x28\x29","\x63\x61\x6E\x76\x61\x73","\x32\x64","\x67\x65\x74\x43\x6F\x6E\x74\x65\x78\x74","\x77\x69\x64\x74\x68","\x68\x65\x69\x67\x68\x74","\x66\x69\x6C\x6C\x53\x74\x79\x6C\x65","\x23\x30\x30\x30\x30\x30\x30","\x66\x69\x6C\x6C\x52\x65\x63\x74","\x23\x66\x66\x30\x30\x30\x30","\x62\x65\x67\x69\x6E\x50\x61\x74\x68","\x72\x65\x63\x74","\x73\x74\x72\x6F\x6B\x65","\x66\x69\x6C\x6C","\x23\x30\x30\x30\x30\x66\x66","\x23\x38\x38\x38\x38\x38\x38","\x50\x49","\x61\x72\x63","\x63\x6C\x6F\x73\x65\x50\x61\x74\x68","\x6B\x65\x79\x64\x6F\x77\x6E","\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72","\x77\x68\x69\x63\x68"];var onoff=0* 1;var x=180;var y=700;var x2=180;var y2=70;var ballx=350;var bally=650;var movex=10;var movey=10;var score=0* 1;var scorecpu=0* 1;var movecpu=1* 10;var speed=100* 1;function move(){bally-= movey;ballx+= movex;if(bally< 0){starttimer();ballx= (x+ 170);bally= 650;movey=  -10;speed= 100;score+= 1;document[_0x9aab[2]](_0x9aab[1])[_0x9aab[0]]= score};if(bally> 750){starttimer();ballx= (x+ 170);bally= 650;movey=  -10;speed= 100;scorecpu+= 1;document[_0x9aab[2]](_0x9aab[3])[_0x9aab[0]]= scorecpu};if(bally< (y2+ 50)&& (ballx> x2&& ballx< x2+ 350)){movey*=  -1;movex*= 1;speed-= 5};if(bally> (y- 20)&& (ballx> x&& ballx< x+ 350)){movey*=  -1;movex*= 1;speed-= 5};if(ballx>= 670){movex+=  -10}else {if(ballx<= 30){movex+= 10}};if(ballx< x2){x2-= 15}else {if(ballx> x2+ 350){x2+= 15}};draw()}function starttimer(){if(onoff== 0){timer= setInterval(_0x9aab[4],speed);onoff= 1* 1}else {if(onoff== 1){clearInterval(timer);onoff= 0* 1}}}function draw(){canvas= document[_0x9aab[2]](_0x9aab[5]);ctx= canvas[_0x9aab[7]](_0x9aab[6]);ctx[_0x9aab[5]][_0x9aab[8]]= 700;ctx[_0x9aab[5]][_0x9aab[9]]= 800;ctx[_0x9aab[10]]= _0x9aab[11];ctx[_0x9aab[12]](0,0,700,800);ctx[_0x9aab[10]]= _0x9aab[13];ctx[_0x9aab[14]]();ctx[_0x9aab[15]](x2,y2,350,20);ctx[_0x9aab[16]]();ctx[_0x9aab[17]]();ctx[_0x9aab[10]]= _0x9aab[18];ctx[_0x9aab[14]]();ctx[_0x9aab[15]](x,y,350,20);ctx[_0x9aab[16]]();ctx[_0x9aab[17]]();if(onoff== 1){ctx[_0x9aab[10]]= _0x9aab[19];ctx[_0x9aab[14]]();ctx[_0x9aab[21]](ballx,bally,15,0,Math[_0x9aab[20]]* 2,true);ctx[_0x9aab[22]]();ctx[_0x9aab[17]]()}}function init(){window[_0x9aab[24]](_0x9aab[23],dokeydown,true);draw()}function dokeydown(_0xb206x13){switch(_0xb206x13[_0x9aab[25]]){case 37:x-= 10;break;case 39:x+= 10;break};if(onoff== 0){ballx= (x+ 170);bally= 750};draw()}
+    </script>
+</head>
+<body onload="init()">
+    <center>
+        <canvas id="canvas" width="300" height="200">
+            This text is displayed if your browser does not support HTML5 Canvas.
+        </canvas>
+        <input type="button" value="play" onclick="starttimer()" />
+        </br>
+        <form name="outputform" class="output">
+            <u>PLAYER</u>
+            </br>
+            <textarea name="txaoutputfield" id="outputfield1" rows="5" cols="5" disabled></textarea>
+        </form>
+
+        <form name="outputform2" class="output">
+            <u class="text">CPU</u>
+            </br>
+            <textarea name="txaoutputfield" id="outputfield2" rows="5" cols="5" disabled></textarea>
+        </form>
+    </center>
+</body>
+</html>

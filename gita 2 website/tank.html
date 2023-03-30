@@ -1,0 +1,35 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Canvas Test</title>
+	<style>
+		#progress{
+			width:200px;
+			background-color:grey;
+		}
+		#bar{
+			width:100%;
+			height:30px;
+			background-color:green;
+		}
+
+	</style>
+    <script language="javascript">
+		var _0xc904=["\x66\x69\x72\x65\x62\x75\x6C\x6C\x65\x74\x28\x29","\x6D\x6F\x76\x65\x65\x6E\x65\x6D\x79\x28\x29","\x6B\x65\x79\x64\x6F\x77\x6E","\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72","\x77\x68\x69\x63\x68","\x6C\x6F\x67","\x59\x6F\x75\x20\x64\x69\x65\x64","\x61\x6C\x65\x72\x74","\x72\x65\x6C\x6F\x61\x64","\x69\x6E\x6E\x65\x72\x48\x54\x4D\x4C","\x68\x65\x61\x6C\x74\x68\x74\x65\x78\x74","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x50\x6F\x69\x6E\x74\x73\x20","\x0A","\x48\x65\x61\x6C\x74\x68\x3A\x20","\x63\x61\x6E\x76\x61\x73","\x32\x64","\x67\x65\x74\x43\x6F\x6E\x74\x65\x78\x74","\x77\x69\x64\x74\x68","\x68\x65\x69\x67\x68\x74","\x66\x69\x6C\x6C\x53\x74\x79\x6C\x65","\x23\x38\x30\x38\x30\x38\x30","\x66\x69\x6C\x6C\x52\x65\x63\x74","\x23\x30\x30\x30\x30\x63\x63","\x62\x65\x67\x69\x6E\x50\x61\x74\x68","\x72\x65\x63\x74","\x63\x6C\x6F\x73\x65\x50\x61\x74\x68","\x66\x69\x6C\x6C","\x23\x66\x66\x30\x30\x30\x30","\x23\x30\x30\x30\x30\x30\x30","\x50\x49","\x61\x72\x63"];var canvas=null;var ctx=null;var x=50;var y=100;var cannonx=70;var cannony=70;var x2=700;var y2=400;var cannonx2=720;var cannony2=370;var points=0* 1;var cannonwidth=10;var cannonheight=30;var cannonwidth2=10;var cannonheight2=30;var dx=5* 1;var dy=5* 1;var onoff=0* 1;var onoff2=0* 1;var bulletx=0* 1;var bullety=0* 1;var direction=0* 1;var timercondition=0* 1;var timeron=0* 1;var i=0* 1;var health=100;function starttimer(){if(onoff== 0){timer= setInterval(_0xc904[0],50);onoff= 1* 1;timercondition= 1}else {if(onoff== 1){clearInterval(timer);onoff= 0* 1;timercondition= 0}}}function starttimerenemy(){if(onoff2== 0){timer2= setInterval(_0xc904[1],200);onoff2= 1* 1}else {if(onoff2== 1){clearInterval(timer2);onoff2= 0* 1}}}function init(){window[_0xc904[3]](_0xc904[2],dokeydown,true);draw()}function dokeydown(_0xd286x1f){console[_0xc904[5]](_0xd286x1f[_0xc904[4]]);switch(_0xd286x1f[_0xc904[4]]){case 65:cannonwidth= 30;cannonheight= 10;cannonx= x- 30;cannony= y+ 20;x-= dx;cannonx-= dx;if(timercondition== 0){direction= 65};if(timeron== 0){timeron= 1;starttimerenemy()};break;case 68:cannonwidth= 30;cannonheight= 10;cannonx= x+ 50;cannony= y+ 20;x+= dx;cannonx+= dx;if(timercondition== 0){direction= 68};if(timeron== 0){timeron= 1;starttimerenemy()};break;case 87:cannonwidth= 10;cannonheight= 30;cannonx= x+ 20;cannony= y- 30;y-= dx;cannony-= dx;if(timercondition== 0){direction= 87};if(timeron== 0){timeron= 1;starttimerenemy()};break;case 83:cannonwidth= 10;cannonheight= 30;cannonx= x+ 20;cannony= y+ 50;y+= dx;cannony+= dx;if(timercondition== 0){direction= 83};if(timeron== 0){timeron= 1;starttimerenemy()};break;case 32:if(onoff== 0){starttimer()};break};if(onoff== 0){bulletx= cannonx;bullety= cannony;if(direction== 65){bulletx= cannonx;bullety= cannony+ 5};if(direction== 68){bulletx= cannonx+ 30;bullety= cannony+ 5};if(direction== 87){bulletx= cannonx+ 5;bullety= cannony};if(direction== 83){bulletx= cannonx+ 5;bullety= cannony+ 30}};draw()}function firebullet(){if(direction== 65){bulletx-= 10};if(direction== 68){bulletx+= 10};if(direction== 87){bullety-= 10};if(direction== 83){bullety+= 10};if(bullety< 0|| bullety> 500|| bulletx< 0|| bulletx> 800){starttimer();timercondition= 0;if(direction== 65){bulletx= cannonx;bullety= cannony+ 5};if(direction== 68){bulletx= cannonx+ 30;bullety= cannony+ 5};if(direction== 87){bulletx= cannonx+ 5;bullety= cannony};if(direction== 83){bulletx= cannonx+ 5;bullety= cannony+ 30}};draw()}function moveenemy(){if(x< x2){x2-= 5;cannonwidth2= 30;cannonheight2= 10;cannonx2= x2- 30;cannony2= y2+ 20}else {if(x> x2){x2+= 5;cannonwidth2= 30;cannonheight2= 10;cannonx2= x2+ 50;cannony2= y2+ 20}};if(y< y2){y2-= 5;cannonwidth2= 10;cannonheight2= 30;cannonx2= x2+ 20;cannony2= y2- 30}else {if(y> y2){y2+= 5;cannonwidth2= 10;cannonheight2= 30;cannonx2= x2+ 20;cannony2= y2+ 50}};if((x2<= x+ 50&& x2+ 50>= x)&& (y2<= y+ 50&& y2+ 50>= y)){health-= 10};if(health== 0){window[_0xc904[7]](_0xc904[6]);location[_0xc904[8]]()};if(bulletx> x2&& bulletx< x2+ 50&& bullety> y2&& bullety< y2+ 50){points+= 10;bulletx= cannonx;bullety= cannony;starttimer()};document[_0xc904[11]](_0xc904[10])[_0xc904[9]]= _0xc904[12]+ points+ _0xc904[13]+ _0xc904[13]+ _0xc904[14]+ health;draw()}function draw(){canvas= document[_0xc904[11]](_0xc904[15]);ctx= canvas[_0xc904[17]](_0xc904[16]);ctx[_0xc904[15]][_0xc904[18]]= 800;ctx[_0xc904[15]][_0xc904[19]]= 500;ctx[_0xc904[20]]= _0xc904[21];ctx[_0xc904[22]](0,0,800,500);ctx[_0xc904[20]]= _0xc904[23];ctx[_0xc904[24]]();ctx[_0xc904[25]](x,y,50,50);ctx[_0xc904[26]]();ctx[_0xc904[27]]();ctx[_0xc904[20]]= _0xc904[23];ctx[_0xc904[24]]();ctx[_0xc904[25]](cannonx,cannony,cannonwidth,cannonheight);ctx[_0xc904[26]]();ctx[_0xc904[27]]();ctx[_0xc904[20]]= _0xc904[28];ctx[_0xc904[24]]();ctx[_0xc904[25]](x2,y2,50,50);ctx[_0xc904[26]]();ctx[_0xc904[27]]();ctx[_0xc904[20]]= _0xc904[28];ctx[_0xc904[24]]();ctx[_0xc904[25]](cannonx2,cannony2,cannonwidth2,cannonheight2);ctx[_0xc904[26]]();ctx[_0xc904[27]]();if(onoff== 1){ctx[_0xc904[20]]= _0xc904[29];ctx[_0xc904[24]]();ctx[_0xc904[31]](bulletx,bullety,5,0,Math[_0xc904[30]]* 2,true);ctx[_0xc904[26]]();ctx[_0xc904[27]]()}}
+    </script>
+</head>
+
+<body onload="init()">
+    <center>
+        <h1>Tank</h1></br></br>
+        <canvas id="canvas" width="300" height="200">
+            This text is displayed if your browser does not support HTML5 Canvas.
+        </canvas>
+		<textarea id="healthtext" rows="10" cols="30">
+			Points: 0
+			Health: 100
+		</textarea>
+    </center>
+</body>
+</html>
