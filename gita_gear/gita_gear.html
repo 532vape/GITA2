@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script language="javascript">
+        //this function calculates the total cost of an order and also
+        //calculates average and manager stats
+
+        //global variables
+        var orders = 0 * 1;
+        var totalspent = 0 * 1;
+        var average = 0 * 1;
+
+        function calculate(shirtquant, mousequant, stickerquant, bannerquant) {
+
+            var shirt = 15 * 1;
+            var mouse = 5 * 1;
+            var sticker = 1.50 * 1;
+            var banner = 12 * 1;
+
+            var shirtcost = shirt * shirtquant;
+            var mousecost = mouse * mousequant;
+            var stickercost = sticker * stickerquant;
+            var bannercost = banner * bannerquant;
+            var totalcost = 0 * 1;
+
+            totalcost = shirtcost + mousecost + stickercost + bannercost;
+
+            orders += 1;
+            totalspent += totalcost;
+            average = totalspent / orders;
+
+            var m = totalspent.toFixed(2);
+            var n = average.toFixed(2);
+
+            document.getElementById("managerfield").innerHTML = "Number of Orders: " + orders + "\n" + 
+                "Total Spent: $" + m + "\n" +
+                "Average Cost: $" + n;
+            
+
+            var n = totalcost.toFixed(2);
+
+            //output answers to text area
+            document.getElementById("outputfield").innerHTML = "$" + n;
+
+        }
+    </script>
+    <style>
+        .header {
+            font-family:Montserrat;
+        }
+        .body {
+            background-image: url('background.jpg')
+        }
+        .output {
+            position: relative;
+            float: right;
+            top:-200px;
+        }
+        .text {
+            font-family:Montserrat;
+            font-size:20px;
+        }
+    </style>
+</head>
+<body class="body">
+    <center>
+        <img src="gita2.png">
+    </center>
+    </br>
+    </br>
+    <form name="orderform">
+        <u class="text">Quantity</u>
+        </br>
+        <div class="text">Polo Shirt($15)</div><input type="text" name="txtshirt" value="" />
+        </br>
+        <div class="text">Mouse Pad($5)</div><input type="text" name="txtmouse" value="" />
+        </br>
+        <div class="text">GITA Sticker($1.50)</div>   <input type="text" name="txtsticker" value="" />
+        </br>
+        <div class="text">GITA Banner($12)</div>    <input type="text" name="txtbanner" value="" />
+        </br>
+
+        <input type="button" name="btncalculate" value="calculate"
+               onclick="calculate(orderform.txtshirt.value, orderform.txtmouse.value,
+                            orderform.txtsticker.value, orderform.txtbanner.value)" />
+    </form>
+    
+    <form name="managerform" class="output">
+        <u class="text">Manager Stats:</u>
+        </br>
+        <textarea name="txamanagerfield" id="managerfield" rows="20" cols="20" disabled class="text"></textarea>
+    </form>
+
+    <form name="outputform" class="output">
+        <u class="text">Cost</u>
+        </br>
+        <textarea name="txaoutputfield" id="outputfield" rows="20" cols="20" disabled class="text"></textarea>
+    </form>
+
+    <img src="shirt.jpg" width="200px"/>
+    <img src="mousepad.jpg" width="200px"/>
+    <img src="sticker.jpg" width="200px"/>
+    <img src="banner.gif" width="200px"/>
+
+
+</body>
+</html>

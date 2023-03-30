@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Gita Gear</title>
+    <script language="javascript">
+        //this function calculates the total cost of an order and also
+        //calculates average and manager stats
+
+        //global variables
+        var orders = 0 * 1;
+        var totalspent = 0 * 1;
+        var average = 0 * 1;
+        var numbrother = 0 * 1;
+        var numsister = 0 * 1;
+
+        function calculate(shirtquant, mousequant, stickerquant, bannerquant, radiogroup, abrother, asister) {
+
+            
+            var shirt = 15 * 1;
+            var mouse = 5 * 1;
+            var sticker = 1.50 * 1;
+            var banner = 12 * 1;
+
+            if (radiogroup[1].checked) {
+                discount = .1;
+            }
+
+            else if (radiogroup[2].checked) {
+                discount = .15;
+            }
+
+            else {
+                discount = "0";
+            }
+
+        
+            
+
+            if (abrother.checked) {
+                numbrother += 1;
+            }
+
+            if (asister.checked) {
+                numsister += 1;
+            }
+
+
+            var shirtcost = shirt * shirtquant;
+            var mousecost = mouse * mousequant;
+            var stickercost = sticker * stickerquant;
+            var bannercost = banner * bannerquant;
+            var totalcost = 0 * 1;
+          
+
+            cost = shirtcost + mousecost + stickercost + bannercost;
+            var discountcost = cost * discount;
+            totalcost = cost - (discountcost);
+
+            orders += 1;
+            totalspent += totalcost;
+            average = totalspent / orders;
+
+            var m = totalspent.toFixed(2);
+            var n = average.toFixed(2);
+
+            document.getElementById("managerfield").innerHTML = "Number of Orders: " + orders + "\n" + 
+                "Total Spent: $" + m + "\n" +
+                "Average Cost: $" + n + "\n" +
+                "# of Brothers: " + numbrother + "\n" +
+                "# of Sisters: " + numsister;
+           
+            var r = totalcost.toFixed(2);
+
+            //output answers to text area
+            document.getElementById("outputfield").innerHTML = "$" + r + "\n" + "Original Cost: " + "$" + cost + "\n" + "Discount: " + String(discount * 100) + "%";
+
+            
+        }
+
+    </script>
+    <style>
+        .header {
+            font-family:Montserrat;
+        }
+        .body {
+            background-image: url('background.jpg')
+        }
+        .output {
+            position: relative;
+            float: right;
+            top:-200px;
+        }
+        .text {
+            font-family:Montserrat;
+            font-size:20px;
+        }
+    </style>
+</head>
+<body class="body">
+    <center>
+        <img src="gita2.png">
+    </center>
+    </br>
+    </br>
+    <form name="orderform" class="text" style="margin-left:200px; margin-top:-100px;">
+        <div class="text" style="border-style:solid; width:200px; color:white; border-color:black; background-color:black;">Enter Quantity</div>
+        </br>
+        <div class="text">Polo Shirt($15)</div><input type="text" name="txtshirt" value="" />
+        </br>
+        <img src="shirt.jpg" width="200px" />
+        </br>
+        <div class="text">Mouse Pad($5)</div><input type="text" name="txtmouse" value="" />
+        </br>
+        <img src="mousepad.jpg" width="200px" />
+        </br>
+        <div class="text">GITA Sticker($1.50)</div>   <input type="text" name="txtsticker" value="" />
+        </br>
+        <img src="sticker.jpg" width="200px" />
+        </br>
+        <div class="text">GITA Banner($12)</div>    <input type="text" name="txtbanner" value="" />
+        </br>
+        <img src="banner.gif" width="200px" />
+        </br>
+        </br>
+        <u class="text">Grade Discounts</u>
+        </br>
+        <input type="radio" name="radiobg" value="0discount" />No discount
+        </br>
+        <input type="radio" name="radiobg" value="soph-junior" />Sophomore/Junior discount(10%)
+        </br>
+        <input type="radio" name="radiobg" value="seniordiscount" />Senior discount(15%)
+        </br>
+        </br>
+        <u class="text">Survey</u>
+        </br>
+        <input type="checkbox" name="chkbrother" value="brother" />Brother in GITA
+        </br>
+        <input type="checkbox" name="chksister" value="sister" />Sister in GITA
+        </br>
+        <input type="button" name="btncalculate" value="Calculate"
+               onclick="calculate(orderform.txtshirt.value, orderform.txtmouse.value,
+                            orderform.txtsticker.value, orderform.txtbanner.value, orderform.radiobg, orderform.chkbrother, orderform.chksister)" />
+    </form>
+    
+    <form name="managerform" class="output" style="top:-700px; left:-300px;">
+        <u class="text">Manager Stats:</u>
+        </br>
+        <textarea name="txamanagerfield" id="managerfield" rows="10" cols="20" disabled class="text" style="font-size:30px;"></textarea>
+    </form>
+
+    <form name="outputform" class="output" style="top:-700px; left:-500px;">
+        <u class="text">Cost:</u>
+        </br>
+        <textarea name="txaoutputfield" id="outputfield" rows="10" cols="30" disabled class="text" style="font-size:30px;"></textarea>
+    </form>
+
+</body>
+</html>

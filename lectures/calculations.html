@@ -1,0 +1,48 @@
+
+<html>
+<head>
+<title>Calculations</title>
+
+<script language="javascript">
+	//this function calculates and returns simple interest
+	function calculate(nameString,rateDecimal,timeInteger,principleDecimal){
+		
+		var yourinterestDecimal= 0 * 1;
+		yourinterestDecimal = rateDecimal * timeInteger * principleDecimal;
+		
+		//output answers to text area
+		document.OutputForm.txaoutputField.value = "Hi " + nameString + "/n" + "Your interest is " + yourinterestDecimal;
+		
+	}
+</script>
+</head>
+<body>
+<center>
+<h1>How to do Calculations</h1>
+</br>
+</br>
+<form name="nameForm">
+Enter Name: <input type="text" name="txtname" value=""/>
+</br>
+Enter Rate: <input type="text" name="txtRate" value=" "/>
+</br>
+Enter Years: <input type="text" name="txtYears" value=""/>
+</br>
+Enter Principle: <input type="text" name="txtPrinciple" value=""/>
+</br>
+<input type="button" name="btnpress" value="Calculate"
+	onclick="calculate(nameForm.txtname.value,
+	nameForm.txtRate.value,
+	nameForm.txtYears.value,
+	nameForm.txtPrinciple.value)"/>
+</form>
+</br>
+</br>
+<form name="OutputForm">
+<textarea name="txaoutputField" id="OutputField" rows="20" cols="20"/>
+</textarea>
+
+</center>
+</body>
+
+</html>

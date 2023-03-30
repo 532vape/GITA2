@@ -1,0 +1,206 @@
+<html>
+    <head>
+        <script>
+            var canvas = null;
+            var ctx = null;
+
+            var helicopterx = 370;
+            var helicoptery = 50;
+
+            var keyD = false;
+            var keyA = false;
+            var keySpace = false;
+            var movex = 10;
+            var movey = -10;
+            var onoff = 0;
+
+            var birdcount = 0 *1;
+            var birdarray = new Array();
+
+            var lives = 3;
+            var points = 0;
+
+            function definebird(x,y,velx,vely){
+                this.x=x;
+                this.y=y;
+                this.velx=velx;
+                this.vely=vely;
+            }
+
+            function makebird(){
+                var xcoord = 1000;
+                var ycoord = Math.floor(Math.random()*800)*1;
+                birdarray.push(new definebird(xcoord,ycoord,10,0))
+                birdcount++;
+
+                if (birdcount==1){
+                    bird = setInterval("movebird()",100);
+                }
+            }
+
+            function movebird(){
+                for (var i=0;i<birdarray.length;i++){
+                    birdarray[i].x-=birdarray[i].velx;
+                    //remove birds when crossing nounds
+                    if (birdarray[i].x+120<= 0){
+                        birdarray.shift();
+                        //add points when birds disappear
+                        points += 10;
+                    }
+                    //hit code
+                    if (helicopterx + 130 >= birdarray[i].x && helicopterx <= birdarray[i].x + 100 && helicoptery +90 >= birdarray[i].y && helicoptery <= birdarray[i].y + 50){
+                        birdarray[i].x = -5000;
+                        console.log("hit!");
+                        console.log("lost 1 lp");
+                        //subtract points when hit
+                        points -=5;
+                        lives-=1;
+                        if (lives <=0){
+                            window.alert("You lost!");
+                            location.reload();
+                        }
+                        
+                    }
+                    document.getElementById("points").textContent = "Points: " + points;
+                    document.getElementById("lives").textContent = "Lives: " + lives;
+                }
+                draw();
+            }
+
+            function draw(){
+                canvas = document.getElementById("canvas");
+                ctx = canvas.getContext("2d");
+                ctx.canvas.width = 1000;
+                ctx.canvas.height = 800;
+                ctx.fillStyle = "lightblue";
+                ctx.fillRect(0,0,1000,800)
+
+                for (var k=0;k<birdarray.length;k++){
+                    var img = document.getElementById("scream");
+                    ctx.drawImage(img,birdarray[k].x,birdarray[k].y,100,50)
+                }
+                
+                ctx.fillStyle = "black";
+                ctx.beginPath();
+                ctx.rect(helicopterx,helicoptery,130,90);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = "gold"
+                ctx.beginPath();
+                ctx.rect(helicopterx+80,helicoptery,50,50);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = "grey"
+                ctx.beginPath();
+                ctx.rect(helicopterx+30,helicoptery+90,10,20);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = "grey"
+                ctx.beginPath();
+                ctx.rect(helicopterx+90,helicoptery+90,10,20);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = "grey"
+                ctx.beginPath();
+                ctx.rect(helicopterx,helicoptery+110,130,10);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle="black";
+                ctx.beginPath();
+                ctx.moveTo(helicopterx,helicoptery+10);
+                ctx.lineTo(helicopterx-100,helicoptery+20);
+                ctx.lineTo(helicopterx-160,helicoptery+25);
+                ctx.lineTo(helicopterx,helicoptery+60);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle="grey"
+                ctx.beginPath();
+                ctx.arc(helicopterx-150,helicoptery +20, 20,0, Math.PI *2, true);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle="grey";
+                ctx.beginPath();
+                ctx.rect(helicopterx+60,helicoptery-20,10,20);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle="grey";
+                ctx.beginPath();
+                ctx.rect(helicopterx-25,helicoptery-20,180,10);
+                ctx.closePath();
+                ctx.fill();
+                //boundaries
+                if (helicopterx-170<=0){
+                    helicopterx = 170
+                }
+                if (helicopterx+130>=1000){
+                    helicopterx = 870;
+                }
+                if (helicoptery + -30 <=0){
+                    helicoptery =30;
+                }
+                if (helicoptery + 100 >= 800){
+                    helicoptery = 700;
+                }
+
+
+            }
+
+            
+            function init() {
+                window.addEventListener('keydown', dokeydown, true);
+                draw();
+                starttimer();
+                //return
+            }
+
+            function dokeydown(evt) {
+		        console.log(evt.which);
+                switch(evt.which){
+                    case 68: //d key
+                        helicopterx += movex;
+                        break;
+                    case 65: //a key
+                        helicopterx -= movex;
+                        break;
+                    case 32: //space bar
+                        helicoptery += movey;
+                }
+                draw();
+            }
+
+            function time(){
+                //pull down the helicopter constantly
+                helicoptery += 20;
+                draw();
+            }
+
+            function starttimer(){
+                gravity = setInterval("time()",400);
+                createbird = setInterval("makebird()",4000);
+            }
+
+        
+
+        
+        </script>
+    </head>
+    <body onload="init()">
+        <img id="scream" width="30" height="40" src="bird.png" alt="The Scream" hidden>
+        <textarea id="points" value="0" cols="10" rows="1" style="position: absolute; left: 1200px; top:10px; background-color:white; font-size: 40px;" disabled>Points: 0</textarea>
+        <textarea id="lives" value="0" cols="10" rows="1" style="position: absolute; left: 440px; top:10px; background-color:white; font-size: 40px;" disabled>Lives: 3</textarea>
+    <center>
+        <h1>Helicopter Game</h1>
+        <canvas id="canvas" width="500" height="300">
+            this text is displayed if your browser does not support canvas
+        </canvas>
+    </center>
+    </body>
+</html>

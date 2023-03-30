@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Window Object</title>
+    <script language="javascript">
+        function thewelcome(myname, myphrase) {
+            //creates a window object
+            nicemessage = window.open("", 'awindow',
+                "height=500, width=600, left=200px, top=150");
+            nicemessage.document.write("<div style='font-size:50px'>");
+            nicemessage.document.write("Today is a good day!");
+            nicemessage.document.write("</div>");
+            nicemessage.document.write("</br></br>")
+            nicemessage.document.write("<div style='font-size:50px;color:blue;'> ");
+            nicemessage.document.write("Hello " + myname + " " + myphrase);
+            nicemessage.document.write("</div>");
+            nicemessage.document.write("</br></br>");
+            nicemessage.document.write("<img src='alice.jpg'>");
+
+        }
+    </script>
+</head>
+<body>
+    <center>
+    <h1>How to write to another page</h1>
+    </br>
+    </br>
+    <form name="nameform">
+        Enter Your Name: <input type="text" name="txtname" />
+        </br>
+        </br>
+        Enter Phrase: <input type="text" name="txtphrase" />
+        </br>
+        </br>
+        <div style="font-size:15px; color:red; font-family:arial; cursor:pointer;"
+             onclick="thewelcome(nameform.txtname.value, nameform.txtphrase.value)">
+        Click here for your message
+        </div>
+    </form>
+    </center>
+</body>
+</html>

@@ -1,0 +1,69 @@
+
+<html>
+<head>
+<title>Absolute Positioning</title>
+<style type="text/css">
+
+.train{
+	position:absolute;
+	left:150ppx;
+	top:50px;
+}
+.car{
+	position:relative;
+	left:350px;
+	top:200px;
+}
+.div3{
+	position:relative;
+	font-family:arial;
+	font-size:20px;
+	color:blue;
+	left:230px;
+	top:200px;
+	z-index:10;
+}
+.div2{
+	font-family:arial;
+	font-size:23px;
+	color:red;
+	position:absolute;
+	left:230px;
+	top:75px;
+	z-index:11;
+}
+.div1{
+	font-family:arial;
+	font-size:23px;
+	color:purple;
+	position:absolute;
+	left:230px;
+	top:75px;
+	z-index:-1;
+}
+
+</style>
+</head>
+<body>
+<div class="train">
+	<img src="train.jpg" width="300px">
+</div>
+
+<div class="train">
+	<span class="car">
+		<img src="alice.jpg">
+	</span>
+
+	<div class="div3">
+	This is a test and only a test</div>
+</div>
+
+<div class="div2">
+Trains are really fun unless
+</div>
+<div class="div1">
+trains are really fun unless you get run over
+</div>
+
+</body>
+</html>

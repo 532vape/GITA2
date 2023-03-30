@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Objects</title>
+    <script language="javascript">
+
+        var circles = new Array();
+        var xcoord = 0 * 1;
+        var ycoord = 0 * 1;
+
+        //define properties of circles
+        function circleinfo(x,y,velx,vely,color) {
+            this.x = x;
+            this.y = y;
+            this.velx = velx;
+            this.vely = vely;
+            this.color = color;
+        }
+
+        //fill an array with the properties of our object
+
+        for (var i = 0; i <= 5; i++) {
+            xcoord = Math.floor(Math.random() * 490) * 1;
+            ycoord = Math.floor(Math.random() * 190) * 1;
+            var mycolor = getRandomColor();
+
+            circles[i] = new circleinfo(xcoord, ycoord, 10, 0, mycolor);
+        }
+
+        function init() {
+            drawcircle();
+        }
+
+        function movecircles() {
+            for (var m = 0; m < circles.length; m++) {
+                if (circles[m].x > document.getElementById("mycanvas").width) {
+                    circles[m].velx *= -1;
+                }
+                else if (circles[m].x < 0) {
+                    circles[m].velx *= -1;
+                }
+                circles[m].x += circles[m].velx;
+            }
+            drawcircle();
+        }
+
+        function drawcircle() {
+            var c = document.getElementById("mycanvas");
+            var ctx = c.getContext("2d");
+            ctx.canvas.width = 500;
+            ctx.canvas.height = 200;
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+
+            for (var k = 0; k < circles.length; k++) {
+                ctx.fillStyle = circles[k].color;
+                ctx.beginPath();
+                ctx.arc(circles[k].x, circles[k].y, 15, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.fill();
+            }
+            
+        }
+
+        function getRandomColor() {
+
+            // creating a random number between 0 and 255
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+
+            // going from decimal to hex
+            var hexR = r.toString(16);
+            var hexG = g.toString(16);
+            var hexB = b.toString(16);
+
+            // making sure single character values are prepended with a "0"
+            if (hexR.length == 1) {
+
+                hexR = "0" + hexR;
+
+            }
+
+            if (hexG.length == 1) {
+
+                hexG = "0" + hexG;
+
+            }
+
+            if (hexB.length == 1) {
+
+                hexB = "0" + hexB;
+
+            }
+
+            // creating the hex value by concatenatening the string values
+            var hexColor = "#" + hexR + hexG + hexB;
+            return hexColor.toUpperCase();
+        }
+    </script>
+</head>
+<body onload="init()">
+    <center>
+        <h1>
+            How to Create Objects
+        </h1>
+        </br>
+        </br>
+        <canvas id="mycanvas" width="500" height="200" style="border:1px solid rgb(195,195,195);">
+            your browser does not support the canvas element
+        </canvas>
+        </br>
+        </br>
+        <input type="button" value="move" onclick="movecircles()" />
+    </center>
+</body>
+</html>

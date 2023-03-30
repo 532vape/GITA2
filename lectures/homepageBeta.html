@@ -1,0 +1,78 @@
+
+
+<html>
+<head>
+<title>My Home Page</title>
+<link href="homestyle.css" rel="stylesheet" media="all">
+
+<script language="javascript">
+	function changeLink(linkVar){
+		
+		document.getElementById(linkVar).style.color = "red";
+		document.getElementById(linkVar).style.textDecoration = "none";
+	}
+	
+	function changeBack(linkVar2) {
+		
+		document.getElementById(linkVar2).style.color = "purple";
+		document.getElementById(linkVar2).style.textDecoration = "underline";
+	}
+	
+	function changePic(thePic){
+	
+		document.getElementById(thePic).src = "alice.jpg";
+	}
+	
+	function changepicBack(thePic2){
+		
+		document.getElementById(thePic2).src = "aliceWhite.jpg";
+	}
+</script>
+</head>
+
+<body>
+<div id="container">
+<header>
+	<div id="header">
+	<h1 style="margin-bottom:0">Our Website</h1>
+	</div>
+</header>
+<nav>
+	<div id="menu">
+	</br>
+	</br>
+	<a href="#" id="linkOne" onmouseover="changeLink(this.id)"
+			onmouseout="changeBack(this.id)">HTML</a>
+	</br>
+	<a href="#" id="linkTwo" onmouseover="changeLink(this.id)"
+			onmouseout="changeBack(this.id)">CSS</a>
+	</br>
+	<a href="#" id="linkThree" onmouseover="changeLink(this.id)"
+			onmouseout="changeBack(this.id)">Javascript</a>
+	</div>
+</nav>
+<section>
+	<article>
+	<h1>Welcome to Our Website</h1>
+	<h1>It's Amazing!</h1>
+	<img src="aliceWhite.jpg" id="alice"
+		onmouseover="changePic(this.id)"
+		onmouseout="changepicBack(this.id)">
+	<p>
+	This site is so amazing that Bill Gates
+	called me up and offered me some serious
+	cash. He said if I come to work at
+	Microsoft that I will be his favorite
+	employee.
+	</p>
+	</article>
+</section>
+<footer>
+	<div id="footer">
+	Copyright globalitacademy.us
+	</div>
+</footer>
+</div>
+
+</body>
+</html>

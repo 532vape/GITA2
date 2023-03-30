@@ -1,0 +1,259 @@
+<html>
+    <head>
+        <title>Minesweeper</title>
+        <link rel="icon" href="bomb.png"> 
+        <link rel="stylesheet" href="minesweeperstyles.css" type="text/css">
+
+        <style>
+
+        </style>
+
+        <script>
+            const tile_statuses = { //a series of statuses for the mines and tiles
+                hidden: "hidden",
+                mine: "mine",
+                number: "number",
+                marked: "marked"
+            }
+
+            const boardsize = 10;
+            const numberofmines = 10;
+
+            function init(){
+                placemine(); //initialize the board on screen
+            }
+            
+            const board = [];
+            function createboard(boardsize, numberofmines){
+                 //create an board in an board
+                
+                const minepositions = getminepositions(boardsize, numberofmines) //create a board with length and width = boardsize, and set # of mines
+                for (let x=0;x<boardsize;x++){
+                    const row = [];
+                    for (let y=0;y<boardsize;y++){
+                        const element = document.createElement('div'); //create a div to assign classes to tiles
+                        element.dataset.status = tile_statuses.hidden; //all tiles default to 'hidden'
+                        tile = { //set properties of the tile
+                            element,
+                            x,
+                            y,
+                            mine: minepositions.some(positionmatch.bind(null, {x,y})), //return true if it matches a position in the mineposition function
+                            get status(){
+                                return this.element.dataset.status //return the status of the tile
+                            },
+                            set status(value){
+                                this.element.dataset.status = value //set the status of the tile
+                            },
+                        };
+                        row.push(tile);
+                    }
+                    board.push(row);
+                }
+                return board;
+            }
+        
+            function placemine(){
+        
+                const board = createboard(boardsize,numberofmines);
+                const boardelement = document.querySelector(".board");
+                const mineslefttext = document.querySelector(".mine-count");
+                const messagetext = document.querySelector(".subtext");
+
+                board.forEach(row => {
+                    row.forEach(tile =>{
+                        boardelement.append(tile.element)
+                        tile.element.addEventListener("click", () => { //event listener for:
+                            revealtile(board, tile)                     //leftclick: reveal tiles
+                            checkgameend();
+                        })
+                        tile.element.addEventListener("contextmenu", e => { //rightlick: add flags
+                            e.preventDefault() //prevents right click menu
+                            marktile(tile)
+                            listminesleft()
+                            checkgameend();
+                        })
+                        tile.element.addEventListener("auxclick", b =>{ //scroll wheel: remove flags
+                            b.preventDefault() //prevent middle click 
+                            hidetile(tile)
+                            listminesleft();
+                        })
+                    });   
+                });
+                boardelement.style.setProperty("--size", boardsize);
+                mineslefttext.textContent = numberofmines;
+                
+            }
+
+            function listminesleft(){
+       
+                const markedtilescount = board.reduce((count, row) => {
+                    return(
+                    count + row.filter(tile => tile.status == tile_statuses.marked).length
+                    ) //return the number of marked tiles
+                }, 0)
+                mineslefttext = document.querySelector(".mine-count");
+                mineslefttext.textContent = numberofmines - markedtilescount; //display the number of tiles left to mark on screen
+            }
+
+            function marktile(tile){
+                if (tile.status !== tile_statuses.hidden && 
+                    tile.status !== tile_statuses.marked){
+                    return; //if tile is a revealed tile do nothing
+                }
+
+                if (tile.status == tile_statuses.marked){
+                    tile.status = tile_statuses.hidden; //if a tile is already marked unmark it (this does not work which is why hidetile() is necessary)
+                }
+                else {
+                tile.status = tile_statuses.marked; //mark tile
+                }
+            }   
+
+            function hidetile(tile){
+                if (tile.status !== tile_statuses.hidden &&
+                    tile.status !== tile_statuses.marked){ //if tile is a revealed tile do nothing
+                    return
+                }
+
+                tile.status = tile_statuses.hidden; //revert back to hidden tile
+            }
+
+            function revealtile(board, tile){
+                if (tile.status !== tile_statuses.hidden){
+                    return; //if tile is already revealed do nothing
+                }
+
+                if (tile.mine){
+                    tile.status = tile_statuses.mine; //if tile is a mine set the status equal to mine; this will be used to check for game loss
+                    return;
+                }
+
+                tile.status = tile_statuses.number; 
+                const adjacenttiles = nearbytiles(board, tile);
+                const mines = adjacenttiles.filter(t => t.mine);
+                if (mines.length == 0){
+                    adjacenttiles.forEach(revealtile.bind(null, board)); //if there are no mines in a 2 tile radius make it a blank tile
+                }
+                else{
+                    tile.element.textContent = mines.length; //if there are mines nearby set it to a number that represents the # of nearby mines
+                }
+            }
+
+            function getminepositions(boardsize,numberofmines){
+                const positions = [];
+
+                while (positions.length < numberofmines){
+                    const position = {
+                        x: randomNumber(boardsize), //generate random coordinates for the mines
+                        y: randomNumber(boardsize)
+                    };
+
+                    if (!positions.some(positionmatch.bind(null, position))){
+                        positions.push(position); //kinda forgot what this does but it makes the code work
+                    }
+                }
+
+                return positions;
+
+            }
+
+            function randomNumber(size){
+                return Math.floor(Math.random() * size); //function for generating random numbers
+            }
+
+            function positionmatch(a, b){
+                return a.x == b.x && a.y == b.y; //function to check if positions match
+            }
+            
+            function nearbytiles(board, { x , y }){
+                const tiles = [];
+             
+                const board2 = createboard(boardsize,numberofmines); //check for nearby tiles
+                for (let xoffset = -1; xoffset <= 1; xoffset++){
+                    for (let yoffset = -1; yoffset <=1; yoffset++){
+                        const tile = board2[x + xoffset]?.[y + yoffset];
+                        if (tile) tiles.push(tile);
+                    }
+                }
+                return tiles;
+            }
+
+            function checkgameend(){
+                const lose = checklose(board);
+                const win = checkwin(board);
+                console.log(checkwin(board))
+                const boardelement = document.querySelector(".board");
+                const messagetext = document.querySelector(".subtext");
+                if (win || lose){ //if win/lose make player unable to click any further
+                    boardelement.addEventListener("click", stopProp, {capture: true});
+                    boardelement.addEventListener("auxclick", stopProp, {capture: true});
+                    boardelement.addEventListener("contextmenu", stopProp, {capture: true});
+                }
+                
+                if (win){
+                    messagetext.textContent = "You Win" //game is won and player can reset
+                }
+                if (lose){
+                    messagetext.textContent = "You Lose"
+                    board.forEach(row =>{
+                        row.forEach(tile =>{
+                            if (tile.status == tile_statuses.marked) hidetile(tile) //hide flags after game loss
+                            if (tile.mine) revealtile(board,tile) //reveal all the tiles after game loss
+                        })
+                    })
+                }
+                
+            }
+
+            function stopProp(e){
+                e.stopImmediatePropagation(); //stops further clicks after game win/lose
+            }
+
+            function checkwin(board){
+                let match = 0;
+                return board.some(row=>{
+                    return row.some(tile => {
+                        if (tile.status == tile_statuses.marked && tile.mine)
+                        { //if a mine is marked, incerement match by 1
+                            match++;
+                            if (match == numberofmines){ //if match = the number of mines return true
+                                return true;
+                            }
+                        }
+                    })
+                })
+            }
+
+            function checklose(board){
+                return board.some(row =>{
+                    return row.some(tile =>{
+                        return tile.status == tile_statuses.mine //lose when a single mine is revealed
+                    })
+                })
+            }
+            function help(){
+                window.alert("Left click to reveal tiles," + "\n" + "right click to flag them," + "\n" + "and click scroll wheel to remove flags")
+            } //create a window alert telling how to play the game
+        </script>
+    </head>
+
+    <body onload="init()" style="background-color: green;">
+        <center>
+        <div class="dropdown">
+            <button class="dropbtn">Difficulty</button>
+            <div class="dropdown-content">
+              <a href="minesweeper_easy.html">Beginner</a>
+              <a href="minesweeper_medium.html">Intermediate</a>
+              <a href="minesweeper_hard.html">Expert</a>
+            </div>
+          </div>
+          <input type="button" class="helpbtn" id="reset" width="500px" onclick="help()" value="How to Play">
+    </br>
+    <input type="button" class="resetbtn" id="reset" width="500px" onclick="location.reload()">
+    <div class="subtext">
+        Mines left: <span class="mine-count"></span>
+    </div>
+        <div class="board" id="board"></div>
+    </center>
+    </body>
+</html>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Radio Buttons</title>
+    <script language="javascript">
+        function changebg(radiogroup,ashampoo,agrooming) {
+
+            var thepet = "";
+            var theservices = 0 * 1;
+
+            if (radiogroup[0].checked) {
+                thepet = "You chose dog";
+            }
+
+            else if (radiogroup[1].checked) {
+                thepet = "You chose cat";
+            }
+
+            else {
+                thepet = "You chose other";
+            }
+
+            if (ashampoo.checked) {
+                theservices += 1;
+            }
+
+            if (agrooming.checked) {
+                theservices += 1;
+            }
+
+            thepet += "\n" + theservices + " Services selected."
+            window.alert(thepet);
+            //console is for the programmer
+            console.log(thepet);
+            //var myrandom = Math.floor(Math.random() * 10)+ 1;
+            //console.log(myrandom);
+
+            //if (myrandom == 7) {
+            //    console.log("Lucky seven");
+            //}
+
+            //else if (myrandom == 1 || myrandom==10) {
+            //    console.log("My two favorite numbers");
+            //}
+        }
+    </script>
+</head>
+<body>
+    <center>
+        </br>
+    <h1>My Pet Shop</h1>
+        </br>
+        </br>
+    <form name="testform">
+        <input type="radio" name="radiobg" value="dog" />Dog
+        </br>
+        </br>
+        <input type="radio" name="radiobg" value="cat" />Cat
+        </br>
+        </br>
+        <input type="radio" name="radiobg" value="other" />Other
+        </br>
+        </br>
+        <input type="checkbox" id="shampoo" name="chkshampoo" value="shampoo" />Shampoo
+        </br>
+        </br>
+        <input type="checkbox" id="grooming" name="chkgrooming" value="grooming" />Grooming
+        </br>
+        </br>
+        <input type="button" name="btnpush" value="Choose Pet"
+               onclick="changebg(testform.radiobg, testform.chkshampoo, testform.chkgrooming)" />
+    </form>
+    </center>
+</body>
+</html>

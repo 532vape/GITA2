@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>
+HTML5 animation
+</title>
+<script type="text/javascript">
+    var screamcount = 0 * 1;
+    var screamarray = new Array();
+
+    //define properties
+    function definescream(x,y,velx,vely){
+        this.x=x;
+        this.y=y;
+        this.velx=velx;
+        this.vely=vely;
+    }
+
+    function makescream(){
+        var xcoord = Math.floor(Math.random()*500)*1;
+        var ycoord=Math.floor(Math.random()*800)*1;
+        screamarray.push(new definescream(xcoord,ycoord,10,0));
+        screamcount++;
+
+        if (screamcount==1){
+            timer=setInterval("movescream()",100);
+        }
+    }
+
+    function movescream(){
+        for (var i=0;i<screamarray.length;i++){
+            screamarray[i].x-=screamarray[i].velx;
+        }
+        drawscream()
+    }
+
+    function drawscream(){
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+
+        ctx.fillStyle="black";
+        ctx.fillRect(0,0,800,500);
+
+        for(var k=0;k<screamarray.length;k++){
+            var img = document.getElementById("scream");
+            ctx.drawImage(img,screamarray[k].x,screamarray[k].y);
+        }
+    }
+
+    function removescream(){
+        if (screamcount>0){
+            screamarray.pop();
+            screamcount--;
+        }
+    }
+
+</script>
+</head>
+<body >
+<img id="scream" width="220" height="277" src="img_the_scream.jpg" alt="The Scream" hidden>
+
+</br>
+</br>
+<canvas id="myCanvas" width="800" height="500" 
+style="border: 2px solid rgb(195,195,195);">
+your browser does not support the canvas element.
+</canvas>
+</br>
+</br>
+<input onclick="makescream()" value="Make" type="button">
+<input onclick="removescream()" value="Remove" type="button">
+
+
+
+</body>
+</html>

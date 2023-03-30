@@ -1,0 +1,18 @@
+body{padding: 220px 0 0 180px;}
+		body{background:white url('alice23a.gif')
+				no-repeat;}
+		h1{color:green;
+				font: .5em;}
+		p{color: #8080ff;
+				font-size: 1.5em;
+				line-height: 2;}
+		.chaptertitle{
+			font-family: Perpetua, Georgia, serif;
+			letter-spacing: .1em;
+		}
+		#linkOne {
+		font-family: arial;
+		font-size: 25px;
+		color: purple;
+		font-weight: bold;
+		}

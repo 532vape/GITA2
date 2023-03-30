@@ -1,0 +1,41 @@
+
+
+#container{
+	width:800px;
+	text-align:center;
+}
+
+#header{
+	background-color:#FFA500;
+}
+
+#linkOne, #linkTwo, #linkThree{
+	font-family:arial;
+	font-size:25px;
+	color:purple;
+	font-weight:bold;
+}
+
+#menu{
+	background-color:#FFA500;
+	height:570px;
+	width:180px;
+	float:left;
+}
+
+#footer{
+	background-color:#FFA500;
+	clear:both;
+	text-align:center;
+}
+
+p{
+	color:#8080ff;
+	font-size:22px;
+	line-height:2;
+}
+
+img{
+	float:right;
+	margin:0 0 0 20px;
+}

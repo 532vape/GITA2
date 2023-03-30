@@ -1,0 +1,260 @@
+<html>
+    <head>
+        <title>Minesweeper</title>
+        <link rel="icon" href="bomb.png"> 
+        <link rel="stylesheet" href="minesweeperstyles.css" type="text/css">
+
+        <style>
+
+        </style>
+
+        <script>
+            const tile_statuses = { //a series of statuses for the mines and tiles
+                hidden: "hidden",
+                mine: "mine",
+                number: "number",
+                marked: "marked"
+            }
+
+            const boardsize = 15;
+            const numberofmines = 40;
+
+            function init(){
+                placemine();
+            }
+            
+            const board = [];
+            function createboard(boardsize, numberofmines){
+                 //create an board in an board
+                
+                const minepositions = getminepositions(boardsize, numberofmines)
+                for (let x=0;x<boardsize;x++){
+                    const row = [];
+                    for (let y=0;y<boardsize;y++){
+                        const element = document.createElement('div');
+                        element.dataset.status = tile_statuses.hidden;
+                        tile = {
+                            element,
+                            x,
+                            y,
+                            mine: minepositions.some(positionmatch.bind(null, {x,y})),
+                            get status(){
+                                return this.element.dataset.status
+                            },
+                            set status(value){
+                                this.element.dataset.status = value
+                            },
+                        };
+                        row.push(tile);
+                    }
+                    board.push(row);
+                }
+                return board;
+            }
+        
+            function placemine(){
+        
+                const board = createboard(boardsize,numberofmines);
+                const boardelement = document.querySelector(".board");
+                const mineslefttext = document.querySelector(".mine-count");
+                const messagetext = document.querySelector(".subtext");
+
+                board.forEach(row => {
+                    row.forEach(tile =>{
+                        boardelement.append(tile.element)
+                        tile.element.addEventListener("click", () => {
+                            revealtile(board, tile)
+                            checkgameend();
+                        })
+                        tile.element.addEventListener("contextmenu", e => {
+                            e.preventDefault() //prevents right click menu
+                            marktile(tile)
+                            listminesleft()
+                            checkgameend();
+                        })
+                        tile.element.addEventListener("auxclick", b =>{
+                            b.preventDefault() //prevent middle click
+                            hidetile(tile)
+                            listminesleft();
+                        })
+                    });   
+                });
+                boardelement.style.setProperty("--size", boardsize);
+                mineslefttext.textContent = numberofmines;
+                
+            }
+
+            function listminesleft(){
+       
+                const markedtilescount = board.reduce((count, row) => {
+                    return(
+                    count + row.filter(tile => tile.status == tile_statuses.marked).length
+                    )
+                }, 0)
+                mineslefttext = document.querySelector(".mine-count");
+                mineslefttext.textContent = numberofmines - markedtilescount;
+            }
+
+            function marktile(tile){
+                if (tile.status !== tile_statuses.hidden && 
+                    tile.status !== tile_statuses.marked){
+                    return;
+                }
+
+                if (tile.status == tile_statuses.marked){
+                    tile.status = tile_statuses.hidden;
+                }
+                else {
+                tile.status = tile_statuses.marked;
+                }
+            }   
+
+            function hidetile(tile){
+                if (tile.status !== tile_statuses.hidden &&
+                    tile.status !== tile_statuses.marked){
+                    return
+                }
+
+                tile.status = tile_statuses.hidden;
+            }
+
+            function revealtile(board, tile){
+                if (tile.status !== tile_statuses.hidden){
+                    return;
+                }
+
+                if (tile.mine){
+                    tile.status = tile_statuses.mine;
+                    return;
+                }
+
+                tile.status = tile_statuses.number;
+                const adjacenttiles = nearbytiles(board, tile);
+                const mines = adjacenttiles.filter(t => t.mine);
+                if (mines.length == 0){
+                    adjacenttiles.forEach(revealtile.bind(null, board));
+                }
+                else{
+                    tile.element.textContent = mines.length;
+                }
+            }
+
+            function getminepositions(boardsize,numberofmines){
+                const positions = [];
+
+                while (positions.length < numberofmines){
+                    const position = {
+                        x: randomNumber(boardsize),
+                        y: randomNumber(boardsize)
+                    };
+
+                    if (!positions.some(positionmatch.bind(null, position))){
+                        positions.push(position);
+                    }
+                }
+
+                return positions;
+
+            }
+
+            function randomNumber(size){
+                return Math.floor(Math.random() * size);
+            }
+
+            function positionmatch(a, b){
+                return a.x == b.x && a.y == b.y;
+            }
+            
+            function nearbytiles(board, { x , y }){
+                const tiles = [];
+             
+                const board2 = createboard(boardsize,numberofmines);
+                for (let xoffset = -1; xoffset <= 1; xoffset++){
+                    for (let yoffset = -1; yoffset <=1; yoffset++){
+                        const tile = board2[x + xoffset]?.[y + yoffset];
+                        if (tile) tiles.push(tile);
+                    }
+                }
+                return tiles;
+            }
+
+            function checkgameend(){
+                const lose = checklose(board);
+                const win = checkwin(board);
+                console.log(checkwin(board))
+                const boardelement = document.querySelector(".board");
+                const messagetext = document.querySelector(".subtext");
+                if (win || lose){
+                    boardelement.addEventListener("click", stopProp, {capture: true});
+                    boardelement.addEventListener("auxclick", stopProp, {capture: true});
+                    boardelement.addEventListener("contextmenu", stopProp, {capture: true});
+                }
+                
+                if (win){
+                    messagetext.textContent = "You Win"
+                }
+                if (lose){
+                    messagetext.textContent = "You Lose"
+                    board.forEach(row =>{
+                        row.forEach(tile =>{
+                            if (tile.status == tile_statuses.marked) hidetile(tile) //hide flags after game loss
+                            if (tile.mine) revealtile(board,tile) //reveal all the tiles after game loss
+                        })
+                    })
+                }
+                
+            }
+
+            function stopProp(e){
+                e.stopImmediatePropagation(); //stops further clicks after game win/lose
+            }
+
+            function checkwin(board){
+                let match = 0;
+                return board.some(row=>{
+                    return row.some(tile => {
+                        if (tile.status == tile_statuses.marked && tile.mine)
+                        {
+                            match++;
+                            if (match == numberofmines){
+                                return true;
+                            }
+                        }
+                    })
+                })
+            }
+
+            function checklose(board){
+                return board.some(row =>{
+                    return row.some(tile =>{
+                        return tile.status == tile_statuses.mine //lose when a single mine is revealed
+                    })
+                })
+            }
+
+            function help(){
+                window.alert("Left click to reveal tiles," + "\n" + "right click to flag them," + "\n" + "and click scroll wheel to remove flags")
+            }
+        </script>
+    </head>
+
+    <body onload="init()" style="background-color: yellow;">
+        <center>
+        <div class="dropdown">
+            <button class="dropbtn">Difficulty</button>
+            <div class="dropdown-content">
+              <a href="minesweeper_easy.html">Beginner</a>
+              <a href="minesweeper_medium.html">Intermediate</a>
+              <a href="minesweeper_hard.html">Expert</a>
+            </div>
+          </div>
+          <input type="button" class="helpbtn" id="reset" width="500px" onclick="help()" value="How to Play">
+    </br>
+    <input type="button" class="resetbtn" id="reset" width="500px" onclick="location.reload()">
+    <div class="subtext">
+        Mines left: <span class="mine-count"></span>
+    </div>
+        <div class="board" id="board"></div>
+    </center>
+    </body>
+</html>
