@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Integer Array</title>
+        <script language="javascript">
+            var numberarray = new Array(100);
+            var greatestnumber = 0*1;
+            var lowestnumber = 100;
+            var totalnumber = 0*1;
+            var averagenumber = 0*1;
+
+            function makenumber() {
+                for (var i=0; i<numberarray.length; i ++){
+                    numberarray[i] = Math.floor(Math.random()*100)*1;
+
+                    //filter out all odd #
+                    if (numberarray[i]%2==1){
+                        //numberarray[i] = numberarray[i]+ 1; //efficiency
+                        numberarray.splice(i,1);
+                        numberarray[i] = Math.floor(Math.random()*100)*2;
+                    }
+                    //find total of array
+                    totalnumber += numberarray[i];
+                    //find average of array
+                    averagenumber = totalnumber/1000;
+                    //determine greatest #
+                    if (numberarray[i] > greatestnumber){
+                        greatestnumber = numberarray[i];
+                    }
+                    //determine lowest #
+                    if (numberarray[i] < lowestnumber){
+                        lowestnumber = numberarray[i];
+                    }
+                    
+                    //order from least to greatest
+                    numberarray.sort(function(a,b){return a-b});
+                    
+                }
+                document.getElementById("textform").textContent = numberarray + "\n" + "\n" + "greatest number: " + greatestnumber
+                                                                            +"\n"+"\n"+"lowest number: " + lowestnumber
+                                                                            +"\n"+"\n"+"average number: " + averagenumber;
+            }
+        </script>
+    </head>
+
+    <body onload="makenumber()">
+        <center>
+            <h1>Number Array</h1>
+        <textarea name="" id="textform" cols="50" rows="20" disabled></textarea>
+        </center>
+    </body>
+</html>

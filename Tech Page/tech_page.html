@@ -1,0 +1,162 @@
+<html>
+	<head>
+	<script language="javascript">
+		
+		function changeimage1(thePic){
+			document.getElementById(thePic).src = "merlin_sealevel.jpg";
+		}
+		
+		function changeimageback1(thePic2){
+			document.getElementById(thePic2).src = "https://www.spacex.com/static/images/falcon-9/desktop/Merlin.webp";
+		}
+		
+		function changeimage2 (thePic3){
+			document.getElementById(thePic3).src = "merlin_vaccum.jpg";
+		}
+		
+		function changeimageback2 (thePic4){
+			document.getElementById(thePic4).src = "https://www.spacex.com/static/images/falcon-9/desktop/MerlinVac.webp";
+		}
+		
+		function changeLink(linkVar){
+		
+		document.getElementById(linkVar).style.color = "red";
+		document.getElementById(linkVar).style.textDecoration = "none";
+	}
+	
+	function changeBack(linkVar2) {
+		
+		document.getElementById(linkVar2).style.color = "blue";
+		document.getElementById(linkVar2).style.textDecoration = "underline";
+	}
+	</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Tech Page</title>
+		<link href="styles.css" rel="stylesheet"
+		media="all">
+	</head>
+
+	<body>
+		<div class="bgimg1">
+			<div class="container">
+				<div class="center">
+				<h1>Falcon 9</h1>
+				</div>
+			</div>
+		</div>
+		
+		<div class="bgimg2">
+			</br>
+			<div class="caption">
+				<h2><strong>What is Falcon 9?</strong></h2>
+				<p class="p1">
+				Falcon 9 is a reusable, two-stage rocket designed and</br>
+				manufactured by SpaceX for the reliable and safe transport</br> of
+				people and payloads into Earth orbit and beyond. Falcon</br>
+				9 is
+				the world’s first orbital class reusable rocket.</br> Reusability 
+				allows SpaceX to refly the most expensive parts</br> of the rocket,
+				which in turn drives down the cost of space</br> access.
+				</br>
+				</br>
+				website:
+				<a href="https://www.spacex.com/vehicles/falcon-9/" id="linkOne" onmouseover="changeLink(this.id)"
+			onmouseout="changeBack(this.id)">https://www.spacex.com/vehicles/falcon-9/</a>
+
+				</p>
+			</div>
+			<div class="captionright">
+			<div class="h2">
+				<strong>Overview</strong>
+			</div>
+			
+					<table style="width=100%">
+						<tr>
+							<th>Height</th>
+							<td>70 m / 229.6 ft</td>
+						</tr>
+						<tr>
+							<th>Diameter</th>
+							<td>3.7 m / 12 ft</td>
+						</tr>
+						<tr>
+							<th>Mass</th>
+							<td>549,054 kg / 1,207,920 lb</td>
+						</tr>
+						<tr>
+							<th>Payload to LEO</th>
+							<td>22,800 kg / 50,265 lb</td>
+						</tr>
+						<tr>
+							<th>Payload to GTO</th>
+							<td>8,300 kg / 18,300 lb</td>
+						</tr>
+						<tr>
+							<th>Payload to Mars</th>
+							<td>4,020 kg / 8,860 lb</td>
+						</tr>
+					</table>
+				
+			</div>
+		</div>
+		
+		<div class="right">
+			<img src="https://www.spacex.com/static/images/falcon-9/desktop/Merlin.webp" width="50%" id="sealevel"
+				onmouseover="changeimage1(this.id)"
+				onmouseout="changeimageback1(this.id)">
+			<div class="caption">
+				<div class="hengine">
+					<strong>Engines</strong>
+					</br>
+					Merlin
+				</div>
+			</div>
+			<div class="sealevel">
+			<div class="h2">
+			Sea Level
+			</div>
+				<div class="p1">
+					<strong>Merlin is a family of rocket engines developed by SpaceX for use on its Falcon 1, Falcon 9 and Falcon Heavy launch vehicles. Merlin engines use a rocket grade kerosene (RP-1) and liquid oxygen as rocket propellants in a gas-generator power cycle. The Merlin engine was originally designed for recovery and reuse.</strong>
+				</div>
+				<table style="width = 25%">
+					<tr>
+						<th>Propellant</th>
+						<td>LOX / RP-1</td>
+					</tr>
+					<tr>
+						<th>Thrust</th>
+						<td>845 kN / 190,000 lbf</td>
+					</tr>
+			</table>
+			</div>
+			
+
+		</div>
+		
+		<div class="left">	
+			<img src="https://www.spacex.com/static/images/falcon-9/desktop/MerlinVac.webp" width="50%" id="vaccum"
+				onmouseover="changeimage2(this.id)"
+				onmouseout="changeimageback2(this.id)">>
+				<div class="vaccum">
+					<div class="h2">
+					Vaccum
+					</div>
+						<div class="p3">
+						Merlin Vacuum features a larger exhaust section and a significantly larger expansion nozzle to maximize the engine’s efficiency in the vacuum of space. Its combustion chamber is regeneratively cooled, while the expansion nozzle is radiatively cooled. At full power, the Merlin Vacuum engine operates with the greatest efficiency ever for an American-made hydrocarbon rocket engine.
+						</div>
+						<table style="width = 25%">
+					<tr>
+						<th>Propellant</th>
+						<td>LOX / RP-1</td>
+					</tr>
+					<tr>
+						<th>Thrust</th>
+						<td>981 kN / 220,500 lbf</td>
+					</tr>
+			</table>
+				</div>
+		
+		</div>
+		
+	</body>
+</html>

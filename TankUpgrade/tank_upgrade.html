@@ -1,0 +1,576 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Tank Program</title>
+	<style>
+
+    </style>
+
+	</style>
+    <script language="javascript">
+		var canvas= null;
+		var ctx = null;
+		
+		var dead = 0*1;
+		var destroy = null;
+		var dtx = null;
+
+		var x = 50;
+		var y = 100;
+		var cannonx = 70;
+		var cannony = 70;
+		var health = 0;
+        
+		var dx = 5 * 1;
+		var dy = 5 * 1;
+		var onoff = 0 * 1;	
+		var bulletx = 0 * 1;
+		var bullety = 0 * 1;
+		var direction = 0 * 1;
+		var timercondition = 0 * 1;
+		var velocity = 0;
+		var lives = 0*1;
+		
+		var direction2 = 4;
+		var enemies = new Array();
+		var gems = new Array();
+        var xcoord = 0 * 1;
+		var ycoord = 0 * 1;
+		var onoff2 = 0 * 1;
+		var ggemx = Math.floor(Math.random()*750)*1;
+		var ggemy = Math.floor(Math.random()*450)*1;
+		var bgemx = Math.floor(Math.random()*750)*1;
+		var bgemy = Math.floor(Math.random()*450)*1;
+		var points = 0 *1;
+		var velx = 0;
+		var vely = 0;
+
+        //properties of the enemy tanks
+        function enemyinfo(ex, ey, velx, vely, lives){
+            this.x = ex;
+			this.y = ey;
+			this.velx = velx;
+			this.vely = vely;
+			this.lives = lives;
+        }
+		for (var b=0; b < 5; b ++){
+            xcoord = Math.floor(Math.random() * 750) * 1;
+			ycoord = Math.floor(Math.random()* 450) * 1;
+			velx = 5;
+			vely = 5;
+			lives = 3;
+            enemies[b] = new enemyinfo(xcoord, ycoord, velx, vely, lives);
+
+		}
+
+		function starttimer() {
+			if (onoff == 0) {
+				timer = setInterval("firebullet()", 50);
+				onoff = 1 * 1;
+				timercondition = 1;
+			}
+			else if (onoff == 1) {
+				clearInterval(timer);
+				onoff = 0 * 1;
+				timercondition = 0;
+			}
+		}
+
+		function starttimertank() {
+			if (onoff2 == 0) {
+                timer2 = setInterval("movetank()", 200);
+                onoff2 = 1 * 1;
+            }
+            else if (onoff2 == 1) {
+                clearInterval(timer2);
+                onoff2 = 0 * 1;
+            }
+		}
+		
+		function movetank(){
+			if (direction == 65){
+				x-=dx;
+				if (cannonx < 0)
+				{
+					x=30;
+				}
+			}
+			else if(direction ==68){
+				x+=dx;
+				if (cannonx+30>document.getElementById("canvas").width){
+					x = 720
+				}
+			}
+			else if(direction==87){
+				y-=dx;
+				if (cannony<0){
+					y = 30;
+				}
+			}
+			else if (direction==83){
+				y+=dx;
+				if (cannony+30>document.getElementById("canvas").height){
+					y = 420;
+				}
+			}
+			//good gem hit code
+			if (x + 50 >= ggemx - 20 && x <= ggemx + 20 && y + 50 >= ggemy && y <= ggemy + 70){
+				ggemx = Math.floor(Math.random()*750)*1;
+				ggemy = Math.floor(Math.random()*450)*1;
+				points+=10;
+				console.log(points);
+			}
+			
+
+			//bad gem hit code
+			if (x + 50 >= bgemx - 20 && x <= bgemx + 20 && y + 50 >= bgemy && y <= bgemy + 70){
+				bgemx = Math.floor(Math.random()*750)*1;
+				bgemy = Math.floor(Math.random()*450)*1;
+				if (points > 0){
+					points-=5;
+				}
+				else if (points == 0){
+					points+=0;
+				}
+				console.log(points);
+			}
+			document.getElementById("points").textContent = "Points" + points;
+
+			for (var t=0;t<enemies.length; t++){
+				//enemy left to right movement
+				if (enemies[t].x > x){
+					enemies[t].velx = -5;
+				}
+				if(enemies[t].x < x){
+					enemies[t].velx = 5;
+				}
+				enemies[t].x += enemies[t].velx;
+
+				//enemy up/down movement
+				if (enemies[t].y > y){
+					enemies[t].vely = -5;
+				}
+				if (enemies[t].y < y){
+					enemies[t].vely = 5;
+				}
+				enemies[t].y += enemies[t].vely;
+
+				//bullet hit code
+				if (bulletx > enemies[t].x && bulletx < enemies[t].x + 40 && bullety > enemies[t].y && bullety < enemies[t].y + 40){
+					bulletx = cannonx;
+					bullety = cannony;
+					starttimer();
+					enemies[t].lives -= 1;
+					console.log("hit");
+					if (enemies[t].lives == 0){
+						enemies[t].x = -1000;
+						dead+=1;
+					}
+				}
+
+				if (enemies[t].x > x && enemies[t].x < x + 50 && enemies[t].y > y && enemies[t].y < y + 50){
+					health = document.getElementById("healthbar");
+					healthbar.value -=10 ;
+
+					if (healthbar.value <= 0){
+						window.alert("You died");
+						location.reload();
+					}
+				}
+			}
+
+			
+			draw();
+
+		}
+
+        
+
+		function init() {
+
+			window.addEventListener('keydown', dokeydown, true);
+			starttimertank();
+			draw();
+			//return
+		}
+		function dokeydown(evt) {
+			console.log(evt.which);
+
+			switch (evt.which) {
+				//a key
+				case 65:
+					x -= dx;
+					direction2 = 0;
+					
+					direction = 65;
+					
+					break;
+				//d key
+				case 68:
+					x += dx;
+					direction2 = 1;
+					
+					direction = 68;
+					
+					break;
+				//w key
+				case 87:
+					y -= dx;
+					direction2 = 2;
+					
+					direction = 87;
+					
+					break;
+				//s key
+				case 83:
+					y += dx;
+                	direction2 = 3;
+					
+					direction = 83;
+					
+					break;
+				//space bar
+				case 32:
+					if (onoff == 0) {
+						starttimer();
+						bulletx = cannonx;
+						bullety = cannony;
+						velocity = direction;
+						onoff = 1;
+					}
+					
+					
+					break;
+				}
+				//when timer of bullet has ship's coordinates
+		
+				draw();
+       		 }
+		
+    	
+
+		function firebullet() {
+			if (velocity == 65) {
+				bulletx -= 10;
+			}
+			if (velocity == 68) {
+				bulletx += 10;
+			}
+			if (velocity == 87) {
+				bullety -= 10;
+			}
+			if (velocity == 83) {
+				bullety += 10;
+			}
+			if (bullety < 0 || bullety > document.getElementById("canvas").height || bulletx < 0 || bulletx > document.getElementById("canvas").width) { //check for bounds
+				starttimer();
+				onoff == 0;
+			}
+			draw();
+		}
+
+		function draw() {
+			canvas = document.getElementById("canvas");
+			ctx = canvas.getContext("2d");
+			ctx.canvas.width = 800;
+			ctx.canvas.height = 500;
+			//pick background fill color
+            ctx.fillStyle = "#808080";
+			ctx.fillRect(0, 0, 800, 500);
+
+			destroy = document.getElementById("destroyedcanvas");
+			dtx = destroy.getContext("2d");
+			destroy.width = 260;
+			destroy.height = 100;
+			dtx.fillStyle = "black";
+			dtx.fillRect(0,0,400,100);
+
+			switch(direction2){
+				case 0:direction2
+					//draw cannon
+					ctx.fillStyle = "#0000cc";
+            		ctx.beginPath();
+					ctx.rect(x-30, y+20, 30, 10);
+            		ctx.closePath();
+					ctx.fill();
+					ctx.lineWidth = 5;
+					ctx.strokeStyle = "black";
+					ctx.stroke();
+					cannonx = x-30;
+					cannony = y+20;
+					//console.log("confirm");
+					break;
+				case 1:direction2
+					//draw cannon
+					ctx.fillStyle = "#0000cc";
+            		ctx.beginPath();
+					ctx.rect(x+50, y+20, 30, 10);
+            		ctx.closePath();
+					ctx.fill();
+					ctx.lineWidth = 5;
+					ctx.strokeStyle = "black";
+					ctx.stroke();
+					cannonx = x+50;
+					cannony = y+20;
+					//console.log("confirm");
+					break;
+				case 2:direction2
+					//draw cannon
+					ctx.fillStyle = "#0000cc";
+            		ctx.beginPath();
+					ctx.rect(x+20, y-30, 10, 30);
+            		ctx.closePath();
+					ctx.fill();
+					ctx.lineWidth = 5;
+					ctx.strokeStyle = "black";
+					ctx.stroke();
+					cannonx = x+20;
+					cannony = y-30;
+					//console.log("confirm");
+					break;
+				case 3:direction2
+					//draw cannon
+					ctx.fillStyle = "#0000cc";
+            		ctx.beginPath();
+					ctx.rect(x+20, y+50, 10, 30);
+            		ctx.closePath();
+					ctx.fill();
+					ctx.lineWidth = 5;
+					ctx.strokeStyle = "black";
+					ctx.stroke();
+					cannonx = x+20;
+					cannony = y+50;
+					//console.log("confirm");
+					break;
+			}
+
+            //draw body
+            ctx.fillStyle = "#0000cc";
+            ctx.beginPath();
+            ctx.rect(x, y, 50, 50);
+            ctx.closePath();
+			ctx.fill();
+			ctx.lineWidth = 5;
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+
+			//draw the bad/good gem
+			ctx.beginPath();
+			ctx.fillStyle="green";
+			ctx.moveTo(ggemx, ggemy);
+			ctx.lineTo(ggemx+20, ggemy+35);
+			ctx.lineTo(ggemx, ggemy+70);
+			ctx.lineTo(ggemx-20, ggemy+35);
+			ctx.lineTo(ggemx,ggemy);
+			ctx.fill();
+			ctx.lineWidth = 5;
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.fillStyle="purple";
+			ctx.moveTo(bgemx, bgemy);
+			ctx.moveTo(bgemx, bgemy);
+			ctx.lineTo(bgemx+20, bgemy+35);
+			ctx.lineTo(bgemx, bgemy+70);
+			ctx.lineTo(bgemx-20, bgemy+35);
+			ctx.lineTo(bgemx,bgemy);
+			ctx.fill();
+			ctx.lineWidth = 5;
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+
+            for (var i = 0; i < enemies.length; i ++){
+            ctx.fillStyle = "#ff0000";
+            ctx.beginPath();
+            ctx.rect(enemies[i].x, enemies[i].y, 40, 40);
+            ctx.closePath();
+			ctx.fill();
+			ctx.lineWidth = 5;
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+
+			if (enemies[i].lives == 0){
+			}
+			//not the most elaborate way but it works
+			//draw dead enemies in another canvas
+				if (dead == 1){
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(10,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+				}
+				if (dead == 2){
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(10,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(60,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+				}
+				if (dead == 3){
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(10,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(60,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(110,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+				}
+				if (dead == 4){
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(10,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(60,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(110,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(160,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+				}
+				if (dead == 5){
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(10,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(60,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(110,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(160,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					dtx.fillStyle="red";
+					dtx.beginPath();
+					dtx.rect(210,30, 40,40)
+					dtx.closePath();
+					dtx.fill();
+					dtx.lineWidth = 5;
+					dtx.strokeStyle = "white";
+					dtx.stroke();
+
+					window.alert("You Won!");
+					location.reload();
+				}
+				
+			}
+
+            //bullet code
+            if (onoff == 1) {
+                ctx.fillStyle = "#000000";
+                ctx.beginPath();
+                ctx.arc(bulletx, bullety, 5, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.fill();
+			}
+			
+			
+		}
+
+    </script>
+</head>
+
+<body onload="init()">
+	<center>
+		<h1 style="font-family: impact;";">Tank</h1></br></br>
+	</center>
+	<progress id="healthbar" value="100" max="100" style="background-color: green; position: absolute; left: 860px;"></progress>
+	<textarea id="points" value="0" cols="5" rows="3" style="position: absolute; left: 1604px; top:134px; background-color:white;" disabled>Points: 0</textarea>
+</br>
+    <center>
+        <canvas id="canvas" width="300" height="200">
+            This text is displayed if your browser does not support HTML5 Canvas.
+		</canvas>
+	</br>
+		<canvas id="destroyedcanvas" width="400" height="100">
+			This text is displayed if your browser does not support HTML5 Canvas.
+		</canvas>
+    </center>
+</body>
+</html>

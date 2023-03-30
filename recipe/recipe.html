@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Burrito Recipe</title>
+    <style>
+        .titlebox{
+            font-family:sans-serif;
+            font-size:50px;
+        }
+        .recipebox {
+            float:right;
+            height:1000px;
+            width:1000px;
+            border-style:solid;
+            border-color:tan;
+            font-family:sans-serif;
+            color:black;
+            font-size:24px;
+        }
+    </style>
+    <script language="javascript">
+        function prnt() {
+            nicemessage = window.open("", 'awindow',
+                "height=700, width=600, left=200px, top=150");
+            nicemessage.document.write("<title>Burrito</title>");
+            nicemessage.document.write("<div class='recipebox'>");
+
+            nicemessage.document.write("<h1 style='margin:5px;'><u>Ingredients</u></h1>");
+
+            nicemessage.document.write("<form style='margin:5px;'>");
+            nicemessage.document.write("<input type='checkbox' disabled />1 lb. ground beef");
+            nicemessage.document.write("</br>");
+            nicemessage.document.write("<input type='checkbox' disabled />1 1-ounce packet taco seasoning mix");
+            nicemessage.document.write("</br>");
+            nicemessage.document.write("<input type='checkbox' disabled />1 1/2 cups refried beans or 1 1/2 cups drained and rinsed black beans");
+            nicemessage.document.write("</br>");
+            nicemessage.document.write("<input type='checkbox' disabled />3/4 cup corn kernels");
+            nicemessage.document.write("</br>");
+            nicemessage.document.write("<input type='checkbox' disabled />3 cups cooked rice (Uncle Ben's Rice is a good quick option");
+            nicemessage.document.write("</br>");
+            nicemessage.document.write("<input type='checkbox' disabled />6 large 10-inch flour tortillas (preferably Mission 'burrito size' tortillas)");
+            nicemessage.document.write("</br>");
+            nicemessage.document.write("<input type='checkbox' disabled />1 1/2 cups shredded cheddar cheese");
+            nicemessage.document.write("</br>");
+            nicemessage.document.write("</br>");
+            nicemessage.document.write("<u>Optional garnish</u>:</br>")
+            nicemessage.document.write("finely diced red onion; diced tomato/salsa; sour cream; cilantro; avacado/guacamole");
+            nicemessage.document.write("</form>");
+            nicemessage.document.write("</br>");
+            nicemessage.document.write("<h1 style='margin:5px;'><u>Cooking Instructions</u></h1>");
+            nicemessage.document.write("<p style='margin:10px;'>");
+            nicemessage.document.write("1. Preheat oven to 350 degrees F. Spray 9 x 13-inch baking dish with cooking spray and set aside.</br></br>");
+            nicemessage.document.write("2. Cook beef with taco seasoning mix, according to seasoning package instructions.</br></br>");
+            nicemessage.document.write("3. To prepare 1 burrito: spread ¼ cup beans down center of tortillas; top with ½ cup rice, beef, 2 tablespoons corn, and ¼ cup cheese.</br></br>");
+            nicemessage.document.write("4.Fold in opposite sides of each tortilla, then roll up, burrito style. Place, seam-sides down, in prepared dish. Repeat with remaining ingredients to prepare 6 total burritos.</br></br>");
+            nicemessage.document.write("5.Cover with foil and bake for 25 minutes (until heated through). If you are baking the burritos from the refrigerator while they’re still cold, it will take about 30-35 minutes for them to heat through.");
+            nicemessage.document.write("</p>");
+            nicemessage.document.write("</div>");
+        }
+    </script>
+</head>
+<body style="color:tan;">
+    <center>
+        <h1 class="titlebox">
+            Burrito</br>
+            <div style="font-size:15px;">Credit:</div><a href="https://www.theseasonedmom.com/easiest-burrito-recipe/"/ style="font-size:15px;">The Seasoned Mom</a>
+        </h1>
+    </center>
+    <img src="burrito.jpg"/>
+    <div class="recipebox">
+
+        <h1 style="margin:5px;"><u>Ingredients</u></h1>
+
+        <form style="margin:5px;">
+            <input type="checkbox" disabled />1 lb. ground beef
+            </br>
+            <input type="checkbox" disabled />1 1-ounce packet taco seasoning mix
+            </br>
+            <input type="checkbox" disabled />1 1/2 cups refried beans or 1 1/2 cups drained and rinsed black beans
+            </br>
+            <input type="checkbox" disabled />3/4 cup corn kernels
+            </br>
+            <input type="checkbox" disabled />3 cups cooked rice (Uncle Ben's Rice is a good quick option)
+            </br>
+            <input type="checkbox" disabled />6 large 10-inch flour tortillas (preferably Mission "burrito size" tortillas)
+            </br>
+            <input type="checkbox" disabled />1 1/2 cups shredded cheddar cheese
+            </br>
+            </br>
+            <u>Optional garnish</u>:</br>
+            finely diced red onion; diced tomato/salsa; sour cream; cilantro; avacado/guacamole
+        </form>
+        </br>
+        <h1 style="margin:5px;"><u>Cooking Instructions</u></h1>
+        <p style="margin:10px;">
+            1. Preheat oven to 350 degrees F. Spray 9 x 13-inch baking dish with cooking spray and set aside.</br></br>
+            2. Cook beef with taco seasoning mix, according to seasoning package instructions.</br></br>
+            3. To prepare 1 burrito: spread ¼ cup beans down center of tortillas; top with ½ cup rice, beef, 2 tablespoons corn, and ¼ cup cheese.</br></br>
+            4.Fold in opposite sides of each tortilla, then roll up, burrito style. Place, seam-sides down, in prepared dish. Repeat with remaining ingredients to prepare 6 total burritos.</br></br>
+            5.Cover with foil and bake for 25 minutes (until heated through). If you are baking the burritos from the refrigerator while they’re still cold, it will take about 30-35 minutes for them to heat through.
+        </p>
+        <form name="printform">
+            <input type="button" name="prntbtn" onclick="prnt()" value="Print"/>
+        </form>
+    </div>
+</body>
+</html>

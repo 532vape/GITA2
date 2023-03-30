@@ -1,0 +1,349 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Canvas Test</title>
+	<style>
+		#progress{
+			width:200px;
+			background-color:grey;
+		}
+		#bar{
+			width:100%;
+			height:30px;
+			background-color:green;
+		}
+
+	</style>
+    <script language="javascript">
+		var canvas= null;
+		var ctx = null;
+
+		var x = 50;
+		var y = 100;
+		var cannonx = 70;
+		var cannony = 70;
+
+		var x2 = 700;
+		var y2 = 400;
+		var cannonx2 = 720;
+		var cannony2 = 370;
+
+		var points = 0 * 1;
+
+		var cannonwidth = 10;
+		var cannonheight = 30;
+
+        var cannonwidth2 = 10;
+		var cannonheight2 = 30;
+
+		var dx = 5 * 1;
+		var dy = 5 * 1;
+
+		var onoff = 0 * 1;
+		var onoff2 = 0 * 1;
+		var bulletx = 0 * 1;
+		var bullety = 0 * 1;
+
+		var direction = 0 * 1;
+		var timercondition = 0 * 1;
+		var timeron = 0 * 1;
+
+		var i = 0 * 1;
+
+        var health = 100;
+	//window.addEventListener('keydown',doKeyDown,true);
+
+
+		function starttimer() {
+			if (onoff == 0) {
+				timer = setInterval("firebullet()", 50);
+				onoff = 1 * 1;
+				timercondition = 1;
+			}
+			else if (onoff == 1) {
+				clearInterval(timer);
+				onoff = 0 * 1;
+				timercondition = 0;
+			}
+		}
+
+		function starttimerenemy() {
+			if (onoff2 == 0) {
+                timer2 = setInterval("moveenemy()", 200);
+                onoff2 = 1 * 1;
+            }
+            else if (onoff2 == 1) {
+                clearInterval(timer2);
+                onoff2 = 0 * 1;
+            }
+        }
+
+		function init() {
+
+			window.addEventListener('keydown', dokeydown, true);
+
+			draw();
+			//return
+		}
+	function dokeydown(evt) {
+		console.log(evt.which);
+
+		switch (evt.which) {
+			//a key
+			case 65:
+				cannonwidth = 30;
+				cannonheight = 10;
+				cannonx = x - 30;
+				cannony = y + 20;
+				x -= dx;
+				cannonx -= dx;
+				if (timercondition == 0) {
+					direction = 65;
+				}
+				if (timeron == 0) {
+					timeron = 1;
+					starttimerenemy();
+                }
+				break;
+			//d key
+			case 68:
+                cannonwidth = 30;
+                cannonheight = 10;
+                cannonx = x + 50;
+                cannony = y + 20;
+
+				x += dx;
+                cannonx += dx;
+				if (timercondition == 0) {
+					direction = 68;
+				}
+                if (timeron == 0) {
+                    timeron = 1;
+                    starttimerenemy();
+                }
+				break;
+			//w key
+			case 87:
+                cannonwidth = 10;
+                cannonheight = 30;
+                cannonx = x + 20;
+                cannony = y - 30;
+
+				y -= dx;
+				cannony -= dx;
+				if (timercondition == 0) {
+					direction = 87;
+				}
+                if (timeron == 0) {
+                    timeron = 1;
+                    starttimerenemy();
+                }
+				break;
+			//s key
+			case 83:
+                cannonwidth = 10;
+                cannonheight = 30;
+                cannonx = x + 20;
+                cannony = y + 50;
+
+				y += dx;
+                cannony += dx;
+				if (timercondition == 0) {
+					direction = 83;
+				}
+                if (timeron == 0) {
+                    timeron = 1;
+                    starttimerenemy();
+                }
+				break;
+			//space bar
+			case 32:
+				if (onoff == 0) {
+					starttimer();
+				}
+				break;
+		}
+		//when timer of bullet has ship's coordinates
+		if (onoff == 0) {
+			bulletx = cannonx;
+			bullety = cannony;
+
+            if (direction == 65) { //a key
+                bulletx = cannonx;
+                bullety = cannony + 5;
+			}
+            if (direction == 68) { //d key
+                bulletx = cannonx + 30;
+                bullety = cannony + 5;
+			}
+            if (direction == 87) { //w key
+                bulletx = cannonx + 5;
+                bullety = cannony;
+			}
+            if (direction == 83) { //s key
+                bulletx = cannonx + 5;
+                bullety = cannony + 30;
+            }
+        }
+		draw();
+    }
+
+
+
+		function firebullet() {
+			if (direction == 65) {
+				bulletx -= 10;
+			}
+			if (direction == 68) {
+				bulletx += 10;
+			}
+			if (direction == 87) {
+				bullety -= 10;
+			}
+			if (direction == 83) {
+				bullety += 10;
+			}
+			if (bullety < 0 || bullety > 500 || bulletx < 0 || bulletx > 800) { //check for bounds
+				starttimer();
+				timercondition = 0;
+
+				if (direction == 65) { //a key
+					bulletx = cannonx;
+					bullety = cannony + 5;
+				}
+                if (direction == 68) { //d key
+                    bulletx = cannonx + 30;
+                    bullety = cannony + 5;
+				}
+                if (direction == 87) { //w key
+                    bulletx = cannonx + 5;
+                    bullety = cannony;
+				}
+                if (direction == 83) { //s key
+                    bulletx = cannonx + 5;
+                    bullety = cannony + 30;
+                }
+			}
+			draw();
+		}
+
+		function moveenemy() {
+			if (x < x2) {
+				x2 -= 5;
+
+                cannonwidth2 = 30;
+                cannonheight2 = 10;
+                cannonx2 = x2 - 30;
+                cannony2 = y2 + 20;
+			}
+			else if (x > x2) {
+			
+				x2 += 5;
+
+                cannonwidth2 = 30;
+                cannonheight2 = 10;
+                cannonx2 = x2 + 50;
+                cannony2 = y2 + 20;
+			}
+			if (y < y2) {
+				y2 -= 5;
+
+                cannonwidth2 = 10;
+                cannonheight2 = 30;
+                cannonx2 = x2 + 20;
+                cannony2 = y2 - 30;
+			}
+			else if (y > y2) {
+				y2 += 5;
+
+                cannonwidth2 = 10;
+                cannonheight2 = 30;
+                cannonx2 = x2 + 20;
+                cannony2 = y2 + 50;
+			}
+			
+			//enemy proximity code
+			if ((x2 <= x + 50 && x2 + 50 >= x) && (y2 <= y + 50 && y2 + 50 >= y)) {
+				health -= 10;
+			}
+				if (health == 0) {
+					window.alert("You died");
+					location.reload();
+                }
+			
+            if (bulletx > x2 && bulletx < x2 + 50 && bullety > y2 && bullety < y2 + 50) {
+				points += 10;
+                bulletx = cannonx;
+				bullety = cannony;
+				starttimer();
+            }
+			document.getElementById("healthtext").innerHTML = "Points " + points + "\n" + "\n" + "Health: " + health;
+			draw();
+        }
+
+		function draw() {
+			canvas = document.getElementById("canvas");
+			ctx = canvas.getContext("2d");
+			ctx.canvas.width = 800;
+			ctx.canvas.height = 500;
+			//pick background fill color
+            ctx.fillStyle = "#808080";
+			ctx.fillRect(0, 0, 800, 500);
+
+
+            //draw body
+            ctx.fillStyle = "#0000cc";
+            ctx.beginPath();
+            ctx.rect(x, y, 50, 50);
+            ctx.closePath();
+			ctx.fill();
+
+			//draw cannon
+            ctx.fillStyle = "#0000cc";
+            ctx.beginPath();
+			ctx.rect(cannonx, cannony, cannonwidth, cannonheight);
+            ctx.closePath();
+			ctx.fill();
+
+            //draw enemy
+
+            ctx.fillStyle = "#ff0000";
+            ctx.beginPath();
+            ctx.rect(x2, y2, 50, 50);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = "#ff0000";
+            ctx.beginPath();
+            ctx.rect(cannonx2, cannony2, cannonwidth2, cannonheight2);
+            ctx.closePath();
+            ctx.fill();
+
+            //bullet code
+            if (onoff == 1) {
+                ctx.fillStyle = "#000000";
+                ctx.beginPath();
+                ctx.arc(bulletx, bullety, 5, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.fill();
+            }
+		}
+		
+
+    </script>
+</head>
+
+<body onload="init()">
+    <center>
+        <h1>Tank</h1></br></br>
+        <canvas id="canvas" width="300" height="200">
+            This text is displayed if your browser does not support HTML5 Canvas.
+        </canvas>
+		<textarea id="healthtext" rows="10" cols="30">
+			Points: 0
+			Health: 100
+		</textarea>
+    </center>
+</body>
+</html>
