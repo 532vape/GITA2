@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Gita Gear</title>
+    <script language="javascript">
+        var _0xbddf=["\x63\x68\x65\x63\x6B\x65\x64","\x30","\x74\x6F\x46\x69\x78\x65\x64","\x69\x6E\x6E\x65\x72\x48\x54\x4D\x4C","\x6D\x61\x6E\x61\x67\x65\x72\x66\x69\x65\x6C\x64","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x4E\x75\x6D\x62\x65\x72\x20\x6F\x66\x20\x4F\x72\x64\x65\x72\x73\x3A\x20","\x0A","\x54\x6F\x74\x61\x6C\x20\x53\x70\x65\x6E\x74\x3A\x20\x24","\x41\x76\x65\x72\x61\x67\x65\x20\x43\x6F\x73\x74\x3A\x20\x24","\x23\x20\x6F\x66\x20\x42\x72\x6F\x74\x68\x65\x72\x73\x3A\x20","\x23\x20\x6F\x66\x20\x53\x69\x73\x74\x65\x72\x73\x3A\x20","\x6F\x75\x74\x70\x75\x74\x66\x69\x65\x6C\x64","\x24","\x4F\x72\x69\x67\x69\x6E\x61\x6C\x20\x43\x6F\x73\x74\x3A\x20","\x44\x69\x73\x63\x6F\x75\x6E\x74\x3A\x20","\x25"];var orders=0* 1;var totalspent=0* 1;var average=0* 1;var numbrother=0* 1;var numsister=0* 1;function calculate(_0xe31bx7,_0xe31bx8,_0xe31bx9,_0xe31bxa,_0xe31bxb,_0xe31bxc,_0xe31bxd){var _0xe31bxe=15* 1;var _0xe31bxf=5* 1;var _0xe31bx10=1.50* 1;var _0xe31bx11=12* 1;if(_0xe31bxb[1][_0xbddf[0]]){discount= 0.1}else {if(_0xe31bxb[2][_0xbddf[0]]){discount= 0.15}else {discount= _0xbddf[1]}};if(_0xe31bxc[_0xbddf[0]]){numbrother+= 1};if(_0xe31bxd[_0xbddf[0]]){numsister+= 1};var _0xe31bx12=_0xe31bxe* _0xe31bx7;var _0xe31bx13=_0xe31bxf* _0xe31bx8;var _0xe31bx14=_0xe31bx10* _0xe31bx9;var _0xe31bx15=_0xe31bx11* _0xe31bxa;var _0xe31bx16=0* 1;cost= _0xe31bx12+ _0xe31bx13+ _0xe31bx14+ _0xe31bx15;var _0xe31bx17=cost* discount;_0xe31bx16= cost- (_0xe31bx17);orders+= 1;totalspent+= _0xe31bx16;average= totalspent/ orders;var _0xe31bx18=totalspent[_0xbddf[2]](2);var _0xe31bx19=average[_0xbddf[2]](2);document[_0xbddf[5]](_0xbddf[4])[_0xbddf[3]]= _0xbddf[6]+ orders+ _0xbddf[7]+ _0xbddf[8]+ _0xe31bx18+ _0xbddf[7]+ _0xbddf[9]+ _0xe31bx19+ _0xbddf[7]+ _0xbddf[10]+ numbrother+ _0xbddf[7]+ _0xbddf[11]+ numsister;var _0xe31bx1a=_0xe31bx16[_0xbddf[2]](2);document[_0xbddf[5]](_0xbddf[12])[_0xbddf[3]]= _0xbddf[13]+ _0xe31bx1a+ _0xbddf[7]+ _0xbddf[14]+ _0xbddf[13]+ cost+ _0xbddf[7]+ _0xbddf[15]+ String(discount* 100)+ _0xbddf[16]}
+    </script>
+    <style>
+        .header {
+            font-family:Montserrat;
+        }
+        .body {
+            background-image: url('background.jpg')
+        }
+        .output {
+            position: relative;
+            float: right;
+            top:-200px;
+        }
+        .text {
+            font-family:Montserrat;
+            font-size:20px;
+        }
+    </style>
+</head>
+<body class="body">
+    <center>
+        <img src="gita2.png">
+    </center>
+    </br>
+    </br>
+    <form name="orderform" class="text" style="margin-left:200px; margin-top:-100px;">
+        <div class="text" style="border-style:solid; width:200px; color:white; border-color:black; background-color:black;">Enter Quantity</div>
+        </br>
+        <div class="text">Polo Shirt($15)</div><input type="text" name="txtshirt" value="" />
+        </br>
+        <img src="shirt.jpg" width="200px" />
+        </br>
+        <div class="text">Mouse Pad($5)</div><input type="text" name="txtmouse" value="" />
+        </br>
+        <img src="mousepad.jpg" width="200px" />
+        </br>
+        <div class="text">GITA Sticker($1.50)</div>   <input type="text" name="txtsticker" value="" />
+        </br>
+        <img src="sticker.jpg" width="200px" />
+        </br>
+        <div class="text">GITA Banner($12)</div>    <input type="text" name="txtbanner" value="" />
+        </br>
+        <img src="banner.gif" width="200px" />
+        </br>
+        </br>
+        <u class="text">Grade Discounts</u>
+        </br>
+        <input type="radio" name="radiobg" value="0discount" />No discount
+        </br>
+        <input type="radio" name="radiobg" value="soph-junior" />Sophomore/Junior discount(10%)
+        </br>
+        <input type="radio" name="radiobg" value="seniordiscount" />Senior discount(15%)
+        </br>
+        </br>
+        <u class="text">Survey</u>
+        </br>
+        <input type="checkbox" name="chkbrother" value="brother" />Brother in GITA
+        </br>
+        <input type="checkbox" name="chksister" value="sister" />Sister in GITA
+        </br>
+        <input type="button" name="btncalculate" value="Calculate"
+               onclick="calculate(orderform.txtshirt.value, orderform.txtmouse.value,
+                            orderform.txtsticker.value, orderform.txtbanner.value, orderform.radiobg, orderform.chkbrother, orderform.chksister)" />
+    </form>
+    
+    <form name="managerform" class="output" style="top:-700px; left:-300px;">
+        <u class="text">Manager Stats:</u>
+        </br>
+        <textarea name="txamanagerfield" id="managerfield" rows="10" cols="20" disabled class="text" style="font-size:30px;"></textarea>
+    </form>
+
+    <form name="outputform" class="output" style="top:-700px; left:-500px;">
+        <u class="text">Cost:</u>
+        </br>
+        <textarea name="txaoutputfield" id="outputfield" rows="10" cols="30" disabled class="text" style="font-size:30px;"></textarea>
+    </form>
+
+</body>
+</html>
